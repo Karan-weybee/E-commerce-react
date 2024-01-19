@@ -1,0 +1,49 @@
+
+/* Pagina de obrigado */
+
+.page-thanks {
+    display: flex;
+    justify-content: center;
+    padding: 0 15px;
+  }
+  .page-thanks .link{
+      font:400 14px/16px 'Helvetica';
+      text-decoration: underline;
+      color: #56B280;
+  }
+  .page-thanks .section-thanks{
+      max-width: 540px;
+      text-align: center;
+  }
+  .page-thanks .section-thanks h3{
+      font:500 26px/58px 'Poppins', sans-serif;
+      color: #272727;
+      margin-top: 16px;
+  }
+  .page-thanks .section-thanks div p{
+      font: 400 14px/16px 'Helvetica';
+      color: #818181;
+      margin: 16px 0 40px;
+      text-align: left;
+  }
+  .page-thanks .section-thanks > p {
+      color: #56B280;
+      margin-bottom: 30px;
+  }
+  .page-thanks .section-thanks .button{
+      margin: 0 auto;
+      padding: 8px 40px;
+      margin-bottom: 30px;
+  }
+  
+  .page-thanks .summary-product {margin-left: 30px;}
+  .page-thanks .summary-product .value-product div {
+      padding-top: 15px;
+      margin-top: 70px;
+      border-top: 1px solid rgba(86, 178, 128, 0.2);
+  }
+  .page-thanks .summary-product span.price-total,
+  .page-thanks .summary-product .value-product > p {
+      color: #56B280;
+  }
+  

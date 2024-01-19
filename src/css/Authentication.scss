@@ -1,0 +1,55 @@
+
+/* pagina de autenticacao */
+.page-authentication .title {
+    font: 500 20px/26px "Roboto", sans-serif;
+    letter-spacing: -0.9px;
+    color: #272727;
+  }
+  .page-authentication .account-details {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .page-authentication .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    line-height: 16px;
+    color: #272727;
+    font: 400 14px/16px "Helvetica", sans-serif;
+  }
+  .page-authentication article.contact {margin: 44px 0 40px;}
+  .page-authentication article.contact div {
+    display: flex;
+    justify-content: space-between;
+  }
+  .page-authentication article.contact div p {
+    font: 500 14px/26px "Roboto";
+    letter-spacing: -0.9px;
+    color: #616161;
+  }
+  .page-authentication article.contact div p a {color: #56b280;}
+  .page-authentication article.shipping {margin-bottom: 60px;}
+  .page-authentication article.shipping p {
+    padding: 2px 0;
+    width: 100%;
+  }
+  .page-authentication article.shipping div {
+    display: flex;
+    gap: 13px;
+    width: 100%;
+  }
+  .page-authentication .go_to_shipping {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .page-authentication .go_to_shipping a {
+    font-family: 400 18px/26px "Roboto", sans-serif;
+    letter-spacing: -0.9px;
+    text-decoration-line: underline;
+    color: #56B280;
+  }
+  .page-authentication .go_to_shipping .button {padding: 8px 44px;}
+  

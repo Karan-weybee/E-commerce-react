@@ -1,0 +1,31 @@
+
+/* sercao depoimentos */
+.section-testimoials .testimoials {
+    display: flex;
+    gap: 31px;
+    justify-content: space-between;
+    margin: 27px 0 90px;
+  }
+  .section-testimoials .testimoial {
+    border-radius: 6px;
+    padding: 0 20px;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0px 4px 24px rgba(139, 167, 178, 0.16);
+  }
+  .section-testimoials figure {
+    margin: 33px 0 14px;
+  }
+  .section-testimoials .description {
+    font: 500 22px/28px "Poppins", sans-serif;
+    width: 270px;
+    letter-spacing: 0.1px;
+    padding: 16px 0 22px;
+  }
+  .section-testimoials .description span {
+    display: block;
+    font: 400 18px/21px "Helvetica", sans-serif;
+    color: #7c8087;
+    margin-top: 6px;
+  }
+  

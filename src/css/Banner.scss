@@ -1,0 +1,59 @@
+
+.title-section {
+    text-align: center;
+    margin: 90px 0 60px;
+  }
+  .title-section h2 {
+    font: 500 40px/57px "Poppins", sans-serif;
+    letter-spacing: -0.9px;
+    color: #0b254b;
+    z-index: 1;
+  }
+  .title-section p {
+    font: 500 18px/27px "Poppins", sans-serif;
+    letter-spacing: 0.1px;
+    color: #5e6e89;
+  }
+  
+  /* banner principal */
+  .banner-principal {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .banner-principal article {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    backdrop-filter: blur(15px);
+    background: rgba(247, 248, 250, 0.7);
+    border-radius: 2px;
+    padding: 33px 95px 63px;
+  }
+  .banner-principal figure {
+    z-index: -2;
+  }
+  .banner-principal h3 {
+    font: 500 40px/58px "Poppins", sans-serif;
+    text-align: center;
+  }
+  .banner-principal h3 img {
+    display: block;
+    margin: 0 auto;
+  }
+  .banner-principal p {
+    display: flex;
+    max-width: 537px;
+    font: 18px/25px "Helvetica", Arial, sans-serif;
+    text-align: center;
+    justify-content: center;
+  }
+  .banner-principal .button {
+    margin-top: 45px;
+    width: 310px;
+    padding: 8px 0;
+    cursor: pointer;
+  }
+  

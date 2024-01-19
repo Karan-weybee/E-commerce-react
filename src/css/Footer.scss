@@ -1,0 +1,51 @@
+
+/* footer */
+
+footer { 
+    margin-top: 70px;
+    background: #272727;
+    color: #fff;
+  }
+  footer section {padding-top: 60px;}
+  footer section > article {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    border-top: 1px solid #fff;
+  }
+  footer .logo-footer {
+    width: 250px;
+    padding-top: 16px;
+  }
+  footer .logo-footer img {padding-bottom: 9px;}
+  footer .logo-footer p {
+    line-height: 23px;
+    letter-spacing: -0.5px;
+    text-align: left;
+  }
+  footer .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 510px;
+    padding: 43px 2px 115px;
+  }
+  footer .footer-links div {width: 150px;}
+  footer .footer-links div h3 {
+    font: 500 16px/29px "Poppins", sans-serif;
+    color: #56B280;
+    margin-bottom: 24px;
+  }
+  footer .footer-links div ul {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  footer .footer-links div ul a {color: #fff;}
+  footer > p {
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    color: #5E6E89;
+    padding: 30px 0;
+  }
+  

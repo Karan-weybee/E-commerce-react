@@ -1,0 +1,41 @@
+
+/* cards da pagina de produto */
+.cards {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fill, 255px);
+    justify-content: center;
+    text-align: center;
+  }
+  .cards .card {
+    filter: drop-shadow(0px 4px 24px rgba(123, 123, 123, 0.15));
+    background: #f7f8fa;
+    transition: 0.5s all;
+  }
+  .cards .card:hover {
+    transform: translateY(-10px);
+    filter: drop-shadow(0px 4px 24px rgba(123, 123, 123, 0.3));
+  }
+  .cards .card article {
+    background: #fff;
+    padding: 10px 26px 16px;
+    font: 500 16px/28px "Poppins", sans-serif;
+  }
+  .cards .card article h2 {
+    letter-spacing: -0.9px;
+    text-align: left;
+  }
+  .cards .card article p {
+    font-size: 20px;
+    color: #56b280;
+    text-align: right;
+  }
+  
+  /* sercao Produtos */
+  .section-products {margin-bottom: 120px;}
+  .section-products div.button {
+    justify-content: center;
+    margin-top: 33px;
+    padding: 8px;
+  }
+  

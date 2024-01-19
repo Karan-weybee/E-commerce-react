@@ -1,0 +1,51 @@
+
+/* sercao beneficios */
+.section-benefits {
+    background: #f7f8fa;
+    padding: 133px 0 234px;
+  }
+  .section-benefits h2 {
+    display: flex;
+    align-items: flex-end;
+    width: 350px;
+    height: 105px;
+    font: 500 40px/47px "Poppins", sans-serif;
+    letter-spacing: -0.9px;
+    color: #1d252c;
+  }
+  .section-benefits p {
+    width: 350px;
+    height: 25px;
+    line-height: 23px;
+    color: #56b280;
+    margin: 15px 0 38px;
+  }
+  .section-benefits section > div {
+    display: flex;
+    position: relative;
+  }
+  .section-benefits figure {
+    position: absolute;
+    top: -150px;
+    right: 0;
+    margin: 30px 0;
+    box-shadow: 0px 10px 94px rgba(123, 123, 123, 0.35);
+  }
+  .section-benefits ul {
+    margin-left: 20px;
+    margin-bottom: 68px;
+  }
+  .section-benefits ul li {
+    line-height: 29px;
+    list-style-image: url("../img/icones/check-circle.svg");
+    margin-bottom: 8px;
+  }
+  .section-benefits ul li strong {
+    font-weight: bold;
+  }
+  .section-benefits .button {padding: 8px 44px;}
+  .section-testimoials {
+    display: flex;
+    background: rgba(86, 178, 128, 0.1);
+  }
+  
