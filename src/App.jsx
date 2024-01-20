@@ -12,24 +12,26 @@ import Cart from './components/Cart';
 import ProductDetails from './components/Product-Details';
 import Authentication from './components/Authentication';
 import Thanks from './components/Thanks';
+import { Outlet } from 'react-router-dom';
+
 
 function App() {
   return (
     <>
-      <Header />
-      <main>
-
-        <Banner />
+      {/* <Header />
+      <main> */}
+        <Outlet/>
+        {/* <Banner />
         <Products />
         <Benefits />
         <Testimonial />
-        <PopularProducts />
+        <PopularProducts /> */}
         {/* <Cart/> */}
         {/* <ProductDetails/> */}
         {/* <Authentication/> */}
         {/* <Thanks/> */}
-      </main>
-      <Footer /> 
+      {/* </main>
+      <Footer />  */}
       
 
     </>

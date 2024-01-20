@@ -4,7 +4,7 @@ import '../css/SingleProduct.scss'
 const SingleProduct = () => {
     return (
         <article class="card">
-        <a href="./product.html">
+        <a href="./product.html">   
             <figure>
                 <picture>
                     <source
