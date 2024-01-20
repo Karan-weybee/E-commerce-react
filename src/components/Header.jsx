@@ -5,7 +5,16 @@ import login from '../img/icones/login.png'
 import '../css/Header.scss'
 
 function Header() {
-    const [user,setUser]=useState("null");
+    const [user, setUser] = useState(null);
+
+    function openModel() {
+
+        document.getElementById("myModal").style.display = "block";
+    }
+    function closeModel() {
+        console.log("closeModel")
+        document.getElementById("myModal").style.display = "none";
+    }
     return (
         <header>
             <section class="container header">
@@ -37,26 +46,51 @@ function Header() {
                 </nav>
                 <article class="icons-menu">
                     {
-                        user==null && (
+                        user == null && (
                             <>
-                            <a href="#"><i class="bi bi-person"></i></a>
-                            <img src={login} alt='' className='login-icon'/>
-                            </>
+                                <a href="#"><i class="bi bi-person"></i></a>
+                                <button id="myBtn" onClick={openModel}> <img src={login} alt='' className='login-icon' /></button>
+
+                                <div id="myModal" class="modal">
+                                    <div class="modal-content">
+                                        <div className="heading">
+                                            <span class="close"><button id="closeBtn" onClick={closeModel}>X</button></span>
+                                            <p>Sign Up</p>
+                                        </div>
+                                        <div className="contents">
+                                            <form action="" class="form-container">
+                                                <label for="name" className='label'>Name</label>
+                                                <input type="text" placeholder="Enter Name" name="name" required/>
+
+                                                <label for="email" className='label'>Email</label>
+                                                <input type="text" placeholder="Enter Email" name="email" required/>
+
+                                                <label for="psw" className='label'>Password</label>
+                                                <input type="password" placeholder="Enter Password" name="psw" required/>
+
+                                                <button type="submit" class="btn">Sign Up</button>
+                                                </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                </>
                         )}
-                       { user!=null && (
-                            <>
-                             <a class="icon-cart" href="./cart.html">
-                        <i class="bi bi-cart"></i><span>1</span></a>
-                          <img src={logout} alt='' className='logout-icon' />
-                            </>
-                        )
-                    }
-                    
-                   
-                </article>
+                                {user != null && (
+                                    <>
+                                        <a class="icon-cart" href="./cart.html">
+                                            <i class="bi bi-cart"></i><span>1</span></a>
+                                        <img src={logout} alt='' className='logout-icon' />
+                                    </>
+                                )
+                                }
+
+
+                            </article>
             </section>
         </header>
     );
 }
 
 export default Header;
+
+
