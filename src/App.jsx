@@ -14,25 +14,23 @@ import Authentication from './components/Authentication';
 import Thanks from './components/Thanks';
 import { Outlet } from 'react-router-dom';
 
-
 function App() {
   return (
     <>
       {/* <Header />
       <main> */}
-        <Outlet/>
-        {/* <Banner />
+      <Outlet />
+      {/* <Banner />
         <Products />
         <Benefits />
         <Testimonial />
         <PopularProducts /> */}
-        {/* <Cart/> */}
-        {/* <ProductDetails/> */}
-        {/* <Authentication/> */}
-        {/* <Thanks/> */}
+      {/* <Cart/> */}
+      {/* <ProductDetails/> */}
+      {/* <Authentication/> */}
+      {/* <Thanks/> */}
       {/* </main>
       <Footer />  */}
-      
 
     </>
   )

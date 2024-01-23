@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../img/logos/logo.png'
-import mobile1 from '../img/fotos/spiced-mint-cart-mobile.png'
-import mobile2 from '../img/fotos/spiced-mint-cart.png'
-import Header from './Header';
+import { useSelector } from 'react-redux';
+import { getDocs,collection } from 'firebase/firestore';
+import { fs } from '../Config/Config';
 import '../css/Cart.scss'
+import CartItem from './CartItem';
 
 const Cart = () => {
+
+    var user = useSelector((state) => state.userSlice.user);
+    const [cartProducts,setCartProducts]= useState('')
+
+    async function getCartProducts() {
+        const querySnapshot = await getDocs(collection(fs, `cart${user}`));
+        console.log("data");
+        var card = []
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id, " => ", doc.data());
+          card.push(<CartItem id={doc.id} data={doc.data()} />)
+        })
+        setCartProducts(card);
+      }
+    
+      useEffect(() => {
+       getCartProducts();
+      }, [])
+
     return (
         <>
           
@@ -23,51 +43,10 @@ const Cart = () => {
                                 <p class="total">Total</p>
                             </div>
                         </div>
-                        <form
-                            action="#"
-                            method="post"
-                            enctype="multipart/form">
-                            <section>
-                                <section class="product">
-                                    <article>
-                                        <figure>
-                                            <picture>
-                                                <source media="(max-width:780px)"
-                                                    srcset={mobile1} />
-                                                <img src={mobile2}
-                                                    alt="product spiced mint"
-                                                    loading="lazy" />
-                                            </picture>
-                                        </figure>
-                                        <article>
-                                            <a href="./product.html">
-                                                <h2>Spiced Mint Candleaf®</h2>
-                                            </a>
-                                            <p><a class="link" href="#">Remove</a></p>
-                                        </article>
-                                    </article>
-
-                                    <div>
-                                        <p class="price">$ 9.99</p>
-                                        <article class="quantity">
-                                            <label for="quantity">Quantity</label>
-                                            <div>
-                                                <button type="button" class="btn-less">-</button>
-                                                <input
-                                                    id="quantity"
-                                                    placeholder="1"
-                                                    type="number"
-                                                    name="quantity"
-                                                    value="1"
-                                                />
-                                                <button type="button" class="btn-more">+</button>
-                                            </div>
-                                        </article>
-                                        <p class="price total">$ 9.99</p>
-                                    </div>
-                                </section>
-                            </section>
-                        </form>
+                        
+                        {cartProducts.length > 0 && (
+                           <> {cartProducts}</>
+                        )}
 
                         <section class="check-out">
                             <article>

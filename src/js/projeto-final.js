@@ -45,15 +45,7 @@ $(document).ready(function() {
     })
 
     // quantador
-    let quantity = 1
-    $(".btn-more").on("click", function() { // botao adicionar quantidade
-        $("#quantity").val(++quantity)
-        if ($("#quantity").val() >= 1) $(".btn-less").css('color', '#56b280')
-    })
-    $(".btn-less").on("click", function() { // botao remover quantidade
-        if ($("#quantity").val() > 1) $("#quantity").val(--quantity)
-        if ($("#quantity").val() == 1) $(".btn-less").css('color', '#A7A7A7')
-    })
+    
 
     $('#form-authentication').validate({
         rules: {

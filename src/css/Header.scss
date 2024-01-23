@@ -153,18 +153,18 @@ header.topo-fixo {
 .header .icon-cart {position: relative; right: 10px;}
 .header .icon-cart span {
   position: absolute;
-  top: -2px;
-  left: 19px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font: 500 9px/12px "Roboto", sans-serif;
-  color: #FFFFFF;
-  background: #56B280;
-  border-radius: 50%;
-  width: 11px;
-  height: 11px;
+    top: -2px;
+    left: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    font: 500 9px/12px "Roboto", sans-serif;
+    color: #FFFFFF;
+    background: #56B280;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
 }
 #myBtn,#logoutBtn{
     background: none;
@@ -239,8 +239,8 @@ header.topo-fixo {
     background-color: white;
   }
   
-  /* Full-width input fields */
-  .form-container input[type=text] {
+
+  .form-container input[type=text],input[type=number],input[type=file] {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -265,7 +265,7 @@ header.topo-fixo {
   
   /* Set a style for the submit/login button */
   .form-container .btn {
-    background-color: #04AA6D;
+    background-color: #56B280;
     color: white;
     padding: 16px 20px;
     border: none;
@@ -288,3 +288,18 @@ header.topo-fixo {
     display: block;
     margin-bottom: 0.5em;
   }
+  .successMsg{
+    color: #56B280;
+    padding-top: 17px;
+    padding-left: 12px;
+    font-size: 19px;
+    height: 20px;
+    margin-bottom: 1em;
+}
+.errorMsg{
+  color: #d65555;
+  padding-top: 7px;
+  padding-left: 12px;
+  font-size: 16px;
+  height: 17px;
+}

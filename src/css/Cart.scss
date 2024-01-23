@@ -129,4 +129,17 @@
     color: #9E9E9E;
   }
   .page-cart .check-out .button {padding: 10px 44px;}
-  
+
+  @media only screen and (max-width: 760px) {
+    .cartItemImg{
+      width: 94px;
+        height: 76px
+    }
+  }
+  @media only screen and (min-width: 760px) {
+   
+  .cartItemImg{
+    width: 160px;
+      height: 120px
+  }
+}

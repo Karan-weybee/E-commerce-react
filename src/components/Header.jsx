@@ -1,26 +1,97 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { auth, fs } from '../Config/Config'
+import { addDoc, collection } from "firebase/firestore";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { useDispatch, useSelector } from 'react-redux'
+import { resetUserId, userSelector } from '../slices/userSlice';
+import { setUserId } from '../slices/userSlice'
+import { useNavigate } from 'react-router-dom';
 import logo from '../img/logos/logo.png'
 import logout from '../img/icones/check-out.png'
 import signup from '../img/icones/login.png'
 import login from '../img/icones/user.png'
+import { Link } from 'react-router-dom';
 import '../css/Header.scss'
 
 function Header() {
-    const [user, setUser] = useState("null");
-
+    const nevigate = useNavigate();
+    const dispatch = useDispatch();
+    var user = useSelector((state)=>state.userSlice.user)
+    
     function openModel() {
-
         document.getElementById("myModal").style.display = "block";
     }
-    function openLoginModel(){
+    function openLoginModel() {
         document.getElementById("myLoginModal").style.display = "block";
     }
     function closeModel() {
         console.log("closeModel")
         document.getElementById("myModal").style.display = "none";
     }
-    function closeLoginModel(){
+    function closeLoginModel() {
         document.getElementById("myLoginModal").style.display = "none";
+    }
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMsg, setErrorMsg] = useState('');
+    const [successMsg, setSuccessMsg] = useState('');
+
+    async function signUpForm(e) {
+        e.preventDefault();
+        console.log(name, email, password);
+
+        try {
+            await createUserWithEmailAndPassword(auth, email, password);
+
+            const docRef = await addDoc(collection(fs, "users"), {
+                Name: name,
+                Email: email,
+                Password: password
+            });
+            setSuccessMsg("SignUp Successful !!")
+            setName('');
+            setEmail('');
+            setPassword('');
+            setErrorMsg('');
+
+            const uid = docRef.firestore._authCredentials.currentUser.uid;
+            dispatch(setUserId({ uid }))
+            setTimeout((
+                closeModel()), 3000)
+            setSuccessMsg("");
+
+        } catch (e) {
+            setErrorMsg(e.message)
+            console.log(errorMsg)
+        }
+
+    }
+
+    function loginForm(e) {
+        e.preventDefault();
+        console.log(email, password);
+        try {
+            signInWithEmailAndPassword(auth, email, password)
+                .then((user) => {
+                    console.log(user)
+                    setSuccessMsg("Login Successful !!")
+                    setEmail('');
+                    setPassword('');
+                    setErrorMsg('');
+
+                    const uid = user.user.uid;
+                    dispatch(setUserId({ uid }))
+                    setTimeout(closeLoginModel, 10000);
+                    setSuccessMsg('');
+                })
+
+
+        } catch (e) {
+            setErrorMsg(e.message)
+            console.log(errorMsg)
+        }
     }
     return (
         <header>
@@ -30,7 +101,7 @@ function Header() {
                     <div class="line2"></div>
                     <div class="line3"></div>
                 </div>
-                <h1 style={{zIndex:4}}>
+                <h1 style={{ zIndex: 4 }}>
                     <a href="./"><figure>
                         <img src={logo}
                             alt="logo candleaf" />
@@ -55,7 +126,7 @@ function Header() {
                     {
                         user == null && (
                             <>
-                               <button id="myBtn" onClick={openLoginModel}><img src={login} alt='' className='signup-icon' /></button>
+                                <button id="myBtn" onClick={openLoginModel}><img src={login} alt='' className='signup-icon' /></button>
                                 <button id="myBtn" onClick={openModel}> <img src={signup} alt='' className='signup-icon' /></button>
 
                                 <div id="myLoginModal" class="modal">
@@ -65,19 +136,29 @@ function Header() {
                                             <p>Login</p>
                                         </div>
                                         <div className="contents">
-                                            <form action="" class="form-container">
+                                            {successMsg && (
+                                                <div className='successMsg'>{successMsg}</div>
+                                            )}
+                                            <form class="form-container" onSubmit={(e) => loginForm(e)}>
                                                 <label for="email" className='label'>Email</label>
-                                                <input type="text" placeholder="Enter Email" name="email" required />
+                                                <input type="text" placeholder="Enter Email"
+                                                    onChange={(e) => setEmail(e.target.value)} value={email}
+                                                    name="email" required />
 
                                                 <label for="psw" className='label'>Password</label>
-                                                <input type="password" placeholder="Enter Password" name="psw" required />
+                                                <input type="password" placeholder="Enter Password"
+                                                    onChange={(e) => setPassword(e.target.value)} value={password}
+                                                    name="psw" required />
 
                                                 <button type="submit" class="btn">Login</button>
                                             </form>
+                                            {errorMsg && (
+                                                <div className='errorMsg'>{errorMsg}</div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
- 
+
                                 <div id="myModal" class="modal">
                                     <div class="modal-content container">
                                         <div className="heading">
@@ -85,18 +166,30 @@ function Header() {
                                             <p>Sign Up</p>
                                         </div>
                                         <div className="contents">
-                                            <form action="" class="form-container">
+                                            {successMsg && (
+                                                <div className='successMsg'>{successMsg}</div>
+                                            )}
+                                            <form class="form-container" onSubmit={(e) => signUpForm(e)} autoComplete='off'>
                                                 <label for="name" className='label'>Name</label>
-                                                <input type="text" placeholder="Enter Name" name="name" required />
+                                                <input type="text" placeholder="Enter Name" name="name"
+                                                    onChange={(e) => setName(e.target.value)} value={name}
+                                                    required />
 
                                                 <label for="email" className='label'>Email</label>
-                                                <input type="text" placeholder="Enter Email" name="email" required />
+                                                <input type="text" placeholder="Enter Email"
+                                                    onChange={(e) => setEmail(e.target.value)} value={email}
+                                                    name="email" required />
 
                                                 <label for="psw" className='label'>Password</label>
-                                                <input type="password" placeholder="Enter Password" name="psw" required />
+                                                <input type="password" placeholder="Enter Password"
+                                                    onChange={(e) => setPassword(e.target.value)} value={password}
+                                                    name="psw" required />
 
                                                 <button type="submit" class="btn">Sign Up</button>
                                             </form>
+                                            {errorMsg && (
+                                                <div className='errorMsg'>{errorMsg}</div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -104,9 +197,12 @@ function Header() {
                         )}
                     {user != null && (
                         <>
-                            <a class="icon-cart" href="">
-                                <i class="bi bi-cart"></i><span>1</span></a>
-                                <button id="logoutBtn" onClick={()=>(setUser(null))}><img src={logout} alt='' className='logout-icon' /></button>
+                            <Link class="icon-cart" to="/cart">
+                                <i class="bi bi-cart"></i><span>1</span></Link>
+                            <button id="logoutBtn" onClick={() => {
+                               dispatch(resetUserId())
+                               nevigate('/')
+                            }}><img src={logout} alt='' className='logout-icon' /></button>
                         </>
                     )
                     }
