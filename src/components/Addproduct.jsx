@@ -114,13 +114,10 @@ const Addproduct = () => {
                             onChange={(e) => setCategory(e.target.value)} value={category}
                             required>
                             <option value="">Select Category</option>
-                            <option value="Footwear">Footwear</option>
-                            <option value="Bags">Bags</option>
-                            <option value="Accessories">Accessories</option>
-                            <option value="Jewelry">Jewelry</option>
-                            <option value="Eyewear">Eyewear</option>
-                            <option value="Cosmetics">Cosmetics</option>
-                            <option value="Beauty">Beauty</option>
+                            <option value="Floral">Floral</option>
+                            <option value="Fresh">Fresh</option>
+                            <option value="Woody">Woody</option>
+                            <option value="Oriental">Oriental</option>
                         </select>
                     </div>
                 </div>

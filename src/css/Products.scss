@@ -38,4 +38,74 @@
     margin-top: 33px;
     padding: 8px;
   }
+
+
+  .filter-products{
+    margin-bottom: 0.5em;
+    margin-top: 2em;
+    display: flex;
+    max-width: 455px;
+    gap: 10px;
+    flex-wrap: wrap;
+    
+    .filter,.category,.price-range,.stock{
+      height: 20px;
+      // border: 1px solid black;
+      text-align: center;
+      width: 6em;
+    }
+  }
+
+  .filter-selction{
+    display: flex;
+    margin-left: 1em;
+    gap: 10px;
+    margin-top: -2em;
+    margin-bottom: 2em;
+    flex-wrap: wrap;
+
+    .categorys,.prices{
+      height: 18px;
+      border: 1px solid black;
+      padding: 17px 9px 0px 9px;
+      border-radius: 17px;
+      gap: 10px;
+      display: flex;
+    }
+  }
   
+ @media (min-width : 932px){
+  .container2{
+    // border: 1px solid black;
+    max-width: 800px;
+    margin-left: 30%;
+    
+  }
+
+  .filter-section{
+    display: block;
+    // border: 1px solid black;
+    height: 20em;
+    width: 330px;
+    top: 0%;
+    position: absolute;
+    padding-top: 1em;
+    border-right: 1px solid #b4b4b4;
+    border-top: 1px solid #afb0b2;
+    border-radius: 10px;
+  }
+  .cards-filter{
+    position: relative;
+  }
+  .prices{
+    border-top: 1px solid #b4b4b4;
+    padding: 30px;
+    margin-top: 1em;
+    border-radius: 10px;
+  }
+ }
+
+@media (max-width : 932px){
+.filter-section{
+  display: none;
+}}

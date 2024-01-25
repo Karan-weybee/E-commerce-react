@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, arrayUnion, updateDoc } from "firebase/firestore";
 import { fs } from '../Config/Config'
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import trunk from '../img/icones/truck.png'
-import spiced from '../img/fotos/spiced-mint.png'
-import spiced_mobile from '../img/fotos/spiced-mint-mobile.png'
 import '../css/Product-Details.scss'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -30,8 +28,70 @@ const ProductDetails = () => {
         }
     }
 
-    useEffect(() => {
+    async function addProductIntoCart() {
 
+        await getDoc(doc(fs, `carts`, `${user}`)).then((doc) => {
+            if (doc.exists()) {
+
+                let items = doc.data().products;
+
+                const index = items.findIndex(item => item.productId == `${id}`);
+                if (index !== -1) {
+                    console.log("update")
+                    items[index] = {
+                        productId: `${id}`,
+                        qty: Number($("#quantity").val())+items[index].qty,
+                        total: Number(Number($("#quantity").val()) * (product.price - (product.price * product.discount / 100))) +items[index].total     
+                    }
+
+                    updateItemInDoc(items);
+                }
+
+                else{
+                    updateDocument();
+                }
+                   
+            } else {
+                createDocument()
+            }
+        })
+
+       
+        console.log("new cart added")
+    }
+
+    async function updateItemInDoc(items){
+        await updateDoc(doc(fs, `carts`, `${user}`), {
+            products:items
+        });
+    }
+
+    async function updateDocument() {
+        console.log("update")
+
+        await updateDoc(doc(fs, `carts`, `${user}`), {
+            products:arrayUnion({
+                productId: `${id}`,
+                qty: Number($("#quantity").val()),
+                total: Number(Number($("#quantity").val()) * (product.price - (product.price * product.discount / 100)))
+            })
+        });
+
+
+    }
+
+    async function createDocument() {
+        await setDoc(doc(fs, `carts`, `${user}`), {
+            products: [{
+                productId: `${id}`,
+                qty: Number($("#quantity").val()),
+                total: Number(Number($("#quantity").val()) * (product.price - (product.price * product.discount / 100)))
+            }]
+        });
+    }
+
+
+    useEffect(() => {
         getProduct();
 
     }, [])
@@ -46,17 +106,17 @@ const ProductDetails = () => {
         if ($("#quantity").val() == 1) $(".btn-less").css('color', '#A7A7A7')
     })
 
-    async function addProductIntoCart() {
+    // async function addProductIntoCart() {
 
-        await setDoc(doc(fs, `cart${user}`, `${id}`), {
-            productId: `${id}`,
-            qty: Number($("#quantity").val()),
-            total: Number(Number($("#quantity").val()) * (product.price - (product.price * product.discount / 100)))
-        });
+    //     await setDoc(doc(fs, `cart${user}`, `${id}`), {
+    // productId: `${id}`,
+    // qty: Number($("#quantity").val()),
+    // total: Number(Number($("#quantity").val()) * (product.price - (product.price * product.discount / 100)))
+    //     });
 
-        console.log("new cart added")
+    //     console.log("new cart added")
 
-    }
+    // }
     const addToCart = (e) => {
         e.preventDefault();
         console.log(user)
@@ -199,7 +259,7 @@ const ProductDetails = () => {
                 draggable
                 pauseOnHover
                 theme="dark"
-                transition:Bounce/>
+                transition:Bounce />
         </>
     );
 }

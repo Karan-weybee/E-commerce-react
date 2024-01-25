@@ -102,11 +102,11 @@ function Header() {
                     <div class="line3"></div>
                 </div>
                 <h1 style={{ zIndex: 4 }}>
-                    <a href="./"><figure>
+                    <Link to="/"><figure>
                         <img src={logo}
                             alt="logo candleaf" />
                     </figure>
-                    </a>
+                    </Link>
                 </h1>
                 <nav>
                     <ul class="menu">
