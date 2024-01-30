@@ -16,8 +16,8 @@ import '../css/Header.scss'
 function Header() {
     const nevigate = useNavigate();
     const dispatch = useDispatch();
-    var user = useSelector((state)=>state.userSlice.user)
-    
+    var user = useSelector((state) => state.userSlice.user)
+
     function openModel() {
         document.getElementById("myModal").style.display = "block";
     }
@@ -85,6 +85,8 @@ function Header() {
                     dispatch(setUserId({ uid }))
                     setTimeout(closeLoginModel, 10000);
                     setSuccessMsg('');
+                }).catch((e) => {
+                    setErrorMsg(e.message)
                 })
 
 
@@ -200,8 +202,8 @@ function Header() {
                             <Link class="icon-cart" to="/cart">
                                 <i class="bi bi-cart"></i><span>1</span></Link>
                             <button id="logoutBtn" onClick={() => {
-                               dispatch(resetUserId())
-                               nevigate('/')
+                                dispatch(resetUserId())
+                                nevigate('/')
                             }}><img src={logout} alt='' className='logout-icon' /></button>
                         </>
                     )

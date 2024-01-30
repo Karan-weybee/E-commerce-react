@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { fs } from '../Config/Config'
 import SingleProduct from './SingleProduct';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import '../css/Products.scss'
 import '../css/priceRange.scss'
-import Select from 'react-select'
+import filterIcon from '../img/icones/filter.png'
+import closeWindow from '../img/icones/close-window.png'
+import close from '../img/icones/close-option.png'
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategories, setPriceRange } from '../slices/productSlice'
 
 const Products = () => {
 
-
+  const dispatch = useDispatch();
+  const filterCategory = useSelector(state => state.productSlice.categories);
+  const priceRange = useSelector(state => state.productSlice.priceRange);
   const [selectCategorys, setSelectCategorys] = useState([]);
-  const [minValue,setMinValue]=useState(2500);
-  const [maxValue,setMaxValue]=useState(7500)
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(7500)
+  const [checkedList, setCheckedList] = useState([])
 
   const categorys = [
     { value: "Floral", label: 'Floral' },
     { value: "Fresh", label: 'Fresh' },
     { value: "Woody", label: 'Woody' },
-    { value: "Oriental", label: 'Oriental'}
+    { value: "Oriental", label: 'Oriental' }
   ];
 
   const [cards, setCards] = useState([]);
@@ -25,30 +32,87 @@ const Products = () => {
 
   async function getProducts() {
     const querySnapshot = await getDocs(collection(fs, "products"));
-    // console.log("data");
+
+    if (filterCategory.length > 0) {
+      getProduct(querySnapshot);
+    }
+    else {
+      var card = []
+      querySnapshot.forEach((doc) => {
+        if (priceRange[0] <= (doc.data().price - doc.data().price * doc.data().discount / 100) && (doc.data().price - doc.data().price * doc.data().discount / 100) <= priceRange[1]) {
+          card.push(<SingleProduct id={doc.id} data={doc.data()} />)
+        }
+
+      })
+      console.log(card)
+      setCards(card)
+    }
+
+  }
+
+  async function getProduct(querySnapshot) {
+
     var card = []
+    //  await querySnapshot.forEach(async (doc) => {
+    //     await getCategories(doc, card)
+    //   })
+
+    //   console.log(card)
+    const promises = [];
+
     querySnapshot.forEach((doc) => {
-      // console.log(doc.id, " => ", doc.data());
-      card.push(<SingleProduct id={doc.id} data={doc.data()} />)
-    })
+      const promise = getCategories(doc, card);
+      promises.push(promise);
+    });
+
+    await Promise.all(promises);
 
     setCards(card)
+
+  }
+
+  async function getCategories(docs, card) {
+    await getDoc(doc(fs, `product-categories`, `${docs.id}`)).then(async (document) => {
+      if (document.exists() && document.data() && Array.isArray(document.data().categories)) {
+        let categoryFormDb = [];
+
+        await Promise.all(document.data().categories.map(async (category) => {
+          const docu = await getDoc(doc(fs, `categories`, `${category}`));
+
+          if (docu.exists()) {
+            categoryFormDb.push(docu.data().name);
+          }
+        }));
+
+        console.log(categoryFormDb);
+        console.log(filterCategory);
+
+        var valid = false;
+        for (let i = 0; i < filterCategory.length; i++) {
+
+          if (categoryFormDb.includes(filterCategory[i])) {
+
+            valid = true;
+          }
+          else {
+            valid = false;
+            break;
+          }
+        }
+        if (valid) {
+          if (priceRange[0] <= (docs.data().price - docs.data().price * docs.data().discount / 100) && (docs.data().price - docs.data().price * docs.data().discount / 100) <= priceRange[1]) {
+            card.push(<SingleProduct id={docs.id} data={docs.data()} />);
+          }
+
+        }
+      }
+    });
+
   }
 
   useEffect(() => {
     getProducts();
-  }, [])
-
-  function handleChange(selctOption) {
-    setSelectCategorys(selctOption);
-    console.log(selectCategorys)
-  }
-
-  function showFilter() {
-    console.log("filter")
-  }
-
-
+  }, [selectCategorys])
 
   // filter price 
 
@@ -96,7 +160,46 @@ const Products = () => {
         }
       });
     });
-  },[minValue,maxValue])
+  }, [minValue, maxValue])
+
+  function handleCheckboxChange(category) {
+    if (document.getElementById(category).checked) {
+      setCheckedList((checkedCategories) => [...checkedCategories, category])
+    }
+    else {
+      setCheckedList((checkedCategories) => [...checkedCategories].filter((c) => c !== category))
+    }
+
+  }
+
+  function handleFilter() {
+
+    console.log(checkedList);
+    dispatch(setCategories(checkedList))
+    dispatch(setPriceRange([minValue, maxValue]));
+    setSelectCategorys(checkedList);
+  }
+  function openFilter() {
+    document.querySelector('.filter-section').style.animationName = 'filterSection';
+    document.querySelector('.filter-section').style.display = 'block';
+  }
+  function closeFilter() {
+    document.querySelector('.filter-section').style.animationName = 'closeSection';
+    setTimeout(() => {
+      document.querySelector('.filter-section').style.display = 'none';
+
+    }, 1250)
+  }
+
+  function clearFilter(id) {
+    var categories = checkedList.filter((c) => c !== id);
+    console.log(categories)
+    setCheckedList(categories)
+    dispatch(setCategories(categories))
+    setSelectCategorys(categories);
+
+  }
+
   return (
     <>
       <section id="products" class="container section-products">
@@ -106,9 +209,28 @@ const Products = () => {
 
         </section>
 
+        <div className="filterBtnSection">
+          <button className='filterBtn' onClick={openFilter}><img src={filterIcon} alt="" className='filter-icon' /><span> FILTER</span></button>
+        </div>
 
-        <div className="space" style={{ height: '2em' }}></div>
         <div className="cards-filter">
+
+          <div className="appliedFilter">
+            {
+
+              filterCategory.map((categorys) => (
+                <span key={categorys}>
+                  <label>{categorys}</label>
+                  <button style={{ background: 'none', border: '1px' }} onClick={(e) => clearFilter(e.target.id)}>
+                    <img src={closeWindow} alt="" id={categorys} />
+                  </button>
+                </span>
+              ))
+
+
+            }
+          </div>
+
           <section class="cards container2">
 
             {cards.length > 0 && (
@@ -117,95 +239,48 @@ const Products = () => {
 
           </section>
           <section className='filter-section'>
+            <img src={close} className='close-filter' alt="close filter" onClick={closeFilter} />
             <div className="selection">
-              <h1 style={{margin:'1em',fontSize:'20px'}}>Category</h1>
-              <Select
-                placeholder='Select Categories'
-                onChange={handleChange}
-                options={categorys}
-                isMulti={true}
-                styles={{
-                  control: (baseStyle, state) => ({
-                    ...baseStyle,
-                    border: '1px solid white',
-                    width: '300px',
-                    borderRadius: '0px',
-                    ':hover': {
-                      cursor: 'pointer',
-                      border: '1px solid black',
-                    }
-                  }),
-                  multiValue: (baseStyle) => ({
-                    ...baseStyle,
-                    height: '30px',
-                    fontSize: '17px',
-                    background: '#F7F8FA',
-                    padding: '10px 5px',
-                    borderRadius: '14px',
-                  }),
-                  multiValueLabel: (baseStyle) => ({
-                    ...baseStyle,
-                    height: '20px',
-                    paddingTop: '5px',
-                    color: '#333',
-                  }),
-                  multiValueRemove: (baseStyle) => ({
-                    ...baseStyle,
-                    color: '#999',
-                    ':hover': {
-                      background: '#d6dbe0',
-                    },
-                  }),
-                  placeholder: (baseStyle) => ({
-                    ...baseStyle,
-                    color: '#999',
-                  }),
-                  dropdownIndicator: (baseStyle) => ({
-                    ...baseStyle,
-                    color: '#333',
-                  }),
-                  menu: (baseStyle) => ({
-                    ...baseStyle,
-                    width: '300px',
-                    maxWidth: '400px',
-                  }),
-                  option: (baseStyle, state) => ({
-                    ...baseStyle,
-                    margin: '10px',
-                    paddingBottom: '20px',
-                    borderBottom: '1px solid black',
-                    fontSize: '18px',
-                    backgroundColor: state.isSelected ? '#e4e7ea' : 'white',
-                    ':hover': {
-                      backgroundColor: '#f0f0f0',
-                    },
-                  }),
-                }}
-              />
+              <h1 className='category-title'><b> Category</b></h1>
+
+              <ul>
+
+                {categorys.map((category) => (
+                  <li key={category.value} id={`li${category.value}`} style={{ marginBottom: '1em' }}>
+                    <input type="checkbox" name="" id={category.value}
+                      checked={checkedList.includes(category.value)}
+                      onChange={() => handleCheckboxChange(category.value)}
+                    />
+                    <label htmlFor="">{category.label}</label>
+                  </li>
+                ))}
+
+              </ul>
             </div>
             <div className="prices">
               <div class="wrapper">
-                <h1>Price Range</h1>
+                <h1><b> Price Range</b></h1>
                 <div class="price-input">
                   <div class="field">
                     <span>Min</span>
-                    <input type="number" class="input-min" value={minValue} onChange={(e)=>setMinValue(e.target.value)} readOnly/>
+                    <input type="number" class="input-min" value={minValue} onChange={(e) => setMinValue(e.target.value)} readOnly />
                   </div>
                   <div class="separator">-</div>
                   <div class="field">
                     <span>Max</span>
-                    <input type="number" class="input-max" value={maxValue} onChange={(e)=>setMaxValue(e.target.value)} readOnly/>
+                    <input type="number" class="input-max" value={maxValue} onChange={(e) => setMaxValue(e.target.value)} readOnly />
                   </div>
                 </div>
                 <div class="slider">
                   <div class="progress"></div>
                 </div>
                 <div class="range-input">
-                  <input type="range" class="range-min" min="0" max="10000" value={minValue} onChange={(e)=>setMinValue(e.target.value)} step="100" />
-                  <input type="range" class="range-max" min="0" max="10000" value={maxValue} onChange={(e)=>setMaxValue(e.target.value)} step="100" />
+                  <input type="range" class="range-min" min="0" max="10000" value={minValue} onChange={(e) => setMinValue(e.target.value)} step="100" />
+                  <input type="range" class="range-max" min="0" max="10000" value={maxValue} onChange={(e) => setMaxValue(e.target.value)} step="100" />
                 </div>
               </div>
             </div>
+            <button type="button" className='apply-filter' onClick={handleFilter}>Apply</button>
           </section>
         </div>
         <div id="see-more-product" class="button btn-see-more">

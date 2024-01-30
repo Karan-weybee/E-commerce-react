@@ -17,6 +17,8 @@ import Footer from './components/Footer.jsx'
 import Addproduct from './components/Addproduct.jsx'
 import { Provider } from 'react-redux'
 import { store } from './app/store.js'
+import Shipping from './components/Shipping.jsx'
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -55,6 +57,9 @@ const router = createBrowserRouter(
      <Route path='authentication' element={
        <Authentication/>
      } />
+     <Route path='shipping' element={
+       <Shipping/>
+     } />
       <Route path='thanks' element={
        <Thanks/>
      } />
@@ -65,10 +70,11 @@ const router = createBrowserRouter(
   ))
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+ 
     <Provider store={store}>
+   
     <RouterProvider router={router} />
-    </Provider>
-  </React.StrictMode>,
+   
+    </Provider>,
 )
 

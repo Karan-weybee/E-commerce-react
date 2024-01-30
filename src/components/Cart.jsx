@@ -32,15 +32,6 @@ const Cart = () => {
                 setCartProducts(card);
             }
         })
-        // const querySnapshot = await getDocs(collection(fs,`cart${user}`));
-        // var card = []
-        // setGrandTotal(0) 
-        // querySnapshot.forEach((doc) => {
-        //     console.log(doc.id, " => ", doc.data());
-        //     setGrandTotal((grandTotal => grandTotal + doc.data().total))
-        //     card.push(<CartItem id={doc.id} data={doc.data()} setGrandTotal={setGrandTotal} setRemoveProduct={setRemoveProduct} />)
-        // })
-        // setCartProducts(card);
     }
 
     useEffect(() => {
@@ -81,7 +72,7 @@ const Cart = () => {
                             <p>Tax and shipping cost will be calculated later</p>
                         </article>
                         <p>
-                            <a class="button" href="./authentication.html">Check-out</a>
+                            <Link class="button" to="/authentication">Check-out</Link>
                         </p>
                     </section>
                 </section>

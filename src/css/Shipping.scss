@@ -1,0 +1,201 @@
+/* pagina de autenticacao */
+@media (max-width:478px) {
+    .contact {
+        display: flex;
+        justify-content: center;
+
+        .bg {
+            width: 20.8125rem;
+
+            .contact {
+                width: 19.0625rem;
+            }
+
+            #line {
+                width: 18.62506rem;
+            }
+        }
+    }
+
+    .shipping {
+
+        #shipMethod {
+            width: 18.8125rem;
+        }
+    }
+}
+    .bg {
+        width: 27.8125rem;
+        height: 9.3125rem;
+        flex-shrink: 0;
+        border-radius: 0.4375rem;
+        border: 1px solid rgba(86, 178, 128, 0.20);
+
+        .contact {
+            width: 25.0625rem;
+            height: 1rem;
+            flex-shrink: 0;
+            font-feature-settings: 'clig' off, 'liga' off;
+            font-family: Helvetica;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 0.975rem;
+            /* 111.429% */
+            letter-spacing: -0.0375rem;
+            padding: 1em;
+            display: flex;
+
+            .contect {
+                color: #818181;
+            }
+
+            .email {
+                width: 17.5rem;
+                color: var(--black, #272727);
+            }
+
+            .edit {
+                width: 2.0625rem;
+                color: var(--green, #56B280);
+                text-align: center;
+                border: none;
+                background-color: white;
+                margin-top: 1em;
+            }
+        }
+
+        .shipTo {
+            @extend .contact;
+            position: absolute;
+            margin-top: 5em;
+        }
+
+        #line {
+            margin-top: 4em;
+            margin-left: 1em;
+            position: absolute;
+            display: block;
+            width: 25.62506rem;
+            height: 0.0625rem;
+            background: rgba(86, 178, 128, 0.20);
+        }
+    }
+
+    #shipMethod {
+        width: 25.8125rem;
+        height: 9.3125rem;
+        margin-top: 1em;
+        flex-shrink: 0;
+        border-radius: 0.4375rem;
+        border: 1px solid rgba(86, 178, 128, 0.20);
+        height: 1rem;
+        flex-shrink: 0;
+        font-feature-settings: 'clig' off, 'liga' off;
+        font-family: Helvetica;
+        font-size: 0.875rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 0.975rem;
+        /* 111.429% */
+        letter-spacing: -0.0375rem;
+        padding: 1em;
+        display: flex;
+
+        svg {
+            width: 1rem;
+            height: 1rem;
+            flex-shrink: 0;
+            fill: #87D6AC;
+            stroke-width: 3px;
+            stroke: #DBDBDB;
+        }
+
+        .email {
+            width: 18.25rem;
+            margin-top: -11.5px;
+            height: 1rem;
+        }
+
+        .edit {
+            font-weight: 700;
+            background-color: white;
+            // margin-top: 1em;
+            border: none;
+        }
+    }
+
+    .page-shipping .title {
+        font: 500 20px/26px "Roboto", sans-serif;
+        letter-spacing: -0.9px;
+        color: #272727;
+    }
+
+    .page-shipping .account-details {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .page-shipping .checkbox {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        line-height: 16px;
+        color: #272727;
+        font: 400 14px/16px "Helvetica", sans-serif;
+    }
+
+    .page-shipping article.contact {
+        margin: 44px 0 40px;
+    }
+
+    .page-shipping article.contact div {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .page-shipping article.contact div p {
+        font: 500 14px/26px "Roboto";
+        letter-spacing: -0.9px;
+        color: #616161;
+    }
+
+    .page-shipping article.contact div p a {
+        color: #56b280;
+    }
+
+    .page-shipping article.shipping {
+        margin-bottom: 60px;
+    }
+
+    .page-shipping article.shipping p {
+        padding: 2px 0;
+        width: 100%;
+    }
+
+    .page-shipping article.shipping div {
+        display: flex;
+        gap: 13px;
+        width: 100%;
+    }
+
+    .page-shipping .go_to_shipping {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .page-shipping .go_to_shipping a {
+        font-family: 400 18px/26px "Roboto", sans-serif;
+        letter-spacing: -0.9px;
+        text-decoration-line: underline;
+        color: #56B280;
+    }
+
+    .page-shipping .go_to_shipping .button {
+        padding: 8px 44px;
+    }
+    .button{
+        margin-top: 1em;
+    }

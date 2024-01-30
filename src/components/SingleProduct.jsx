@@ -5,7 +5,7 @@ import '../css/SingleProduct.scss'
 const SingleProduct = ({id,data}) => {
 
     // console.log(id);
-    // console.log(data)
+    console.log(data)
 
     // const discountedPrice = (data.price-(data.price*data.discount/100));
     // console.log(discountedPrice)
