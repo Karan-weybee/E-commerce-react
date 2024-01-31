@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { setDoc, doc, getDoc, deleteDoc,updateDoc } from 'firebase/firestore';
 import { fs } from '../Config/Config';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { decrementCartItem } from '../slices/productSlice';
 import { ToastContainer, toast } from 'react-toastify';
 
 const CartItem = ({ id, data, setGrandTotal,setRemoveProduct }) => {
+    const dispatch=useDispatch();
     var user = useSelector((state) => state.userSlice.user);
     console.log(user)
 
@@ -67,7 +69,10 @@ const CartItem = ({ id, data, setGrandTotal,setRemoveProduct }) => {
                 const index = items.findIndex(item => item.productId == `${id}`);
                 if (index !== -1) {
                     if(qty == 0){
-                     items=items.splice(index-1,1)
+                        console.log(index)
+                     items=items.filter(item => item.productId != `${id}`)
+                     dispatch(decrementCartItem())
+                     console.log(items)
                     }else{
                     console.log("update qty")
                     items[index] = {
@@ -93,9 +98,9 @@ const CartItem = ({ id, data, setGrandTotal,setRemoveProduct }) => {
         await chnageQty(0,0);
         
         setRemoveProduct((remove) => remove + 1)
-        setTimeout(()=>{
-            toast("Product remove from cart")
-        },1000)
+        
+            // toast("Product remove from cart")
+        
        
     }
 

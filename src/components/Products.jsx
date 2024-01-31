@@ -10,9 +10,10 @@ import closeWindow from '../img/icones/close-window.png'
 import close from '../img/icones/close-option.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategories, setPriceRange } from '../slices/productSlice'
+import { query, orderBy, startAt,limit } from "firebase/firestore"; 
 
 const Products = () => {
-
+ 
   const dispatch = useDispatch();
   const filterCategory = useSelector(state => state.productSlice.categories);
   const priceRange = useSelector(state => state.productSlice.priceRange);
@@ -20,7 +21,19 @@ const Products = () => {
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(7500)
   const [checkedList, setCheckedList] = useState([])
+  const [dataLimit,setDataLimit]=useState(2)
+  const [loading,setLoading]=useState('none')
 
+  window.addEventListener('scroll',()=>{
+    const scroll = window.scrollY;
+    // console.log(scroll)
+    if(scroll>=(dataLimit*50)){
+      setTimeout(()=>{
+        setLoading('block')
+        setDataLimit((data)=>data+2);
+      })
+    }
+  })
   const categorys = [
     { value: "Floral", label: 'Floral' },
     { value: "Fresh", label: 'Fresh' },
@@ -32,21 +45,23 @@ const Products = () => {
   // console.log(cards);
 
   async function getProducts() {
-    const querySnapshot = await getDocs(collection(fs, "products"));
+    const querySnapshot = await getDocs(query(collection(fs, "products"),limit(dataLimit)));
 
     if (filterCategory.length > 0) {
       getProduct(querySnapshot);
     }
     else {
-      var card = []
-      querySnapshot.forEach((doc) => {
+      var card = []  
+     
+      querySnapshot.forEach((doc) => { 
         if (priceRange[0] <= (doc.data().price - doc.data().price * doc.data().discount / 100) && (doc.data().price - doc.data().price * doc.data().discount / 100) <= priceRange[1]) {
-          card.push(<SingleProduct id={doc.id} data={doc.data()} />)
+         card.push(<SingleProduct id={doc.id} data={doc.data()} />)
         }
 
       })
       console.log(card)
       setCards(card)
+      setLoading('none')
     }
 
   }
@@ -54,11 +69,6 @@ const Products = () => {
   async function getProduct(querySnapshot) {
 
     var card = []
-    //  await querySnapshot.forEach(async (doc) => {
-    //     await getCategories(doc, card)
-    //   })
-
-    //   console.log(card)
     const promises = [];
 
     querySnapshot.forEach((doc) => {
@@ -113,7 +123,7 @@ const Products = () => {
 
   useEffect(() => {
     getProducts();
-  }, [selectCategorys])
+  }, [selectCategorys,dataLimit])
 
   // filter price 
 
@@ -139,12 +149,11 @@ const Products = () => {
         }
       });
     });
-
+        
     rangeInput.forEach(input => {
       input.addEventListener("input", e => {
         let minVal = parseInt(minValue),
           maxVal = parseInt(maxValue);
-
 
         if ((maxVal - minVal) < priceGap) {
           if (e.target.className === "range-min") {
@@ -230,8 +239,6 @@ const Products = () => {
                   </button>
                 </span>
               ))
-
-
             }
           </div>
 
@@ -239,9 +246,11 @@ const Products = () => {
 
             {cards.length > 0 && (
               <>{cards}</>
+              
             )}
-
+          <div style={{display:`${loading}`,color:'#56B180',marginTop:'1em'}}>Loading ...</div>
           </section>
+         
           <section className='filter-section'>
             <img src={close} className='close-filter' alt="close filter" onClick={closeFilter} />
             <div className="selection">
@@ -287,9 +296,7 @@ const Products = () => {
             <button type="button" className='apply-filter' onClick={handleFilter}>Apply</button>
           </section>
         </div>
-        <div id="see-more-product" class="button btn-see-more">
-          See more
-        </div>
+       
       </section>
     </>
   );

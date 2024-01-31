@@ -398,7 +398,7 @@ input[type=checkbox] {margin: 0;}
     margin-top: 60px;
   }
   .summary-product .summary-product-button {display: flex;}
-  .summary-product.hide {top: -400px;}
+  .summary-product.hide {top: -622px;}
   .summary-product.hide i.bi-chevron-up {
     display: inline-block;
     transform: rotate(-180deg);

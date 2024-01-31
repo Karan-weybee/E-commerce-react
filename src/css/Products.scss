@@ -84,8 +84,17 @@
     display: flex;
   }
 }
-
+#see-more-product{
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+  button{
+    font-size: 18px;
+    padding:10px 15px 10px 15px;
+  }
+}
 @media (min-width : 932px) {
+
   .container2 {
     // border: 1px solid black;
     max-width: 800px;
@@ -218,7 +227,8 @@
     // padding: 6px;
     margin: auto;
     font-size: 17px;
-
+    margin-top: 0.55em ;
+    
     .filter-icon {
       height: 20px;
       margin-right: 10px;

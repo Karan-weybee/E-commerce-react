@@ -17,12 +17,15 @@ import { getDoc,doc } from 'firebase/firestore';
 import { fs } from './Config/Config';
 import { Outlet } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
+import { useDispatch } from 'react-redux';
+import { setCartItems } from './slices/productSlice';
 import {
   Elements
 } from '@stripe/react-stripe-js';
 const stripePromise = loadStripe('pk_test_51OeAFgSGf7AKq6X3WiqzagHRjBlEpF3JNOIK0YfroX0n3tpr6xOdTnm5TkYdI4qwjkTSs3Ud4DMu8AiC3QtbEcFO00z2Pt58DP');
 
 function App() {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.userSlice.user);
    const [grandTotal,setGrandTotal]=useState(1);
    
@@ -31,6 +34,7 @@ function App() {
       if (document.exists()) {
         console.log("total")
         setGrandTotal((grandTotal) => (0))
+        dispatch(setCartItems(document.data().products.length))
         document.data().products.map(async (product) => {
           console.log(product.total)
           setGrandTotal((grandTotal) => (grandTotal + product.total))

@@ -57,8 +57,8 @@ const Shipping = () => {
     }, [])
 
 
-    async function handleSubmit (e){
-        e.preventDefault();
+    async function handleSubmit (){
+      console.log("khgjd")
         // await deleteDoc(doc(fs, "carts", `${user}`));
         // await setDoc(doc(fs, "orders", `${user}`), {
         //   products:products
@@ -164,9 +164,9 @@ const Shipping = () => {
                                 <article class="go_to_shipping">
                                     <p><Link to="/authentication">Back to Details</Link></p>
                                     <p style={{ position: 'absolute', right: '15%', bottom: '5%', backgroundColor: 'f2f2f2' }}>
-                                        <form onSubmit={(e) => handleSubmit(e)}>
+                                        <form >
                                             <PaymentElement />
-                                            <button class="button" type="submit" disabled={!stripe || !elements}>
+                                            <button class="button" type="button" onClick={handleSubmit} disabled={!stripe || !elements}>
                                                 Pay
                                             </button>
                                             {/* Show error message to your customers */}

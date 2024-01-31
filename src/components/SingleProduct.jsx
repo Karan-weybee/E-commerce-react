@@ -13,7 +13,7 @@ const SingleProduct = ({id,data}) => {
         <>
         {data && (
         <article class="card" key={id}>
-        <Link to={`product/${id}`}>   
+        <Link to={`/product/${id}`}>   
             <figure>
                 <picture>
                     <source

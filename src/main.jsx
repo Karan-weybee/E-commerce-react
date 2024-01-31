@@ -18,6 +18,7 @@ import Addproduct from './components/Addproduct.jsx'
 import { Provider } from 'react-redux'
 import { store } from './app/store.js'
 import Shipping from './components/Shipping.jsx'
+import ProductSection from '../src/components/ProductSection.jsx'
 
 
 const router = createBrowserRouter(
@@ -28,13 +29,22 @@ const router = createBrowserRouter(
       <Header />
       <main>
        <Banner />
-        <Products />
+        <ProductSection />
         <Benefits />
         <Testimonial />
         <PopularProducts />
         </main>
         <Footer/>
       </>
+     } />
+     <Route path='allproducts' element={
+      <>
+      <Header />
+      <main>
+        <Products />
+        </main>
+        <Footer/>
+        </>
      } />
      <Route path='cart' element={
       <>

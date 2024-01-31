@@ -31,7 +31,7 @@ const Addproduct = () => {
                  addDoc(collection(fs, "products"), {
                     title: title,
                     discription: discription,
-                    category: category,
+                    // category: category,
                     price: Number(price),
                     discount:Number(discount),
                     quantity: Number(quantity),

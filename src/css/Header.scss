@@ -194,12 +194,10 @@ header.topo-fixo {
     100%{
       opacity: 1;
       width: 80%;
-      box-shadow: 0 0 30px white;
     }
   }
   /* Modal Content */
   .modal-content {
-    box-shadow: 0 0 30px white;
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -208,7 +206,7 @@ header.topo-fixo {
     width: 80%;
     height: auto;
     animation-name: showModel;
-  animation-duration: 1.3s;
+  animation-duration: 1.1s;
   }
   
   /* The Close Button */
@@ -317,4 +315,14 @@ header.topo-fixo {
   padding-left: 12px;
   font-size: 16px;
   height: 17px;
+}
+.forLogin{
+  margin-top: 1em;
+  font-size: 16px;
+  button{
+    font-size: 18px;
+    color: #56B280;
+    border: 1px;
+    background-color: white;
+  }
 }

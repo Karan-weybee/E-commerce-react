@@ -17,19 +17,13 @@ function Header() {
     const nevigate = useNavigate();
     const dispatch = useDispatch();
     var user = useSelector((state) => state.userSlice.user)
-
+    const cartItems = useSelector((state) => state.productSlice.cartItems)
     function openModel() {
         document.getElementById("myModal").style.display = "block";
-    }
-    function openLoginModel() {
-        document.getElementById("myLoginModal").style.display = "block";
     }
     function closeModel() {
         console.log("closeModel")
         document.getElementById("myModal").style.display = "none";
-    }
-    function closeLoginModel() {
-        document.getElementById("myLoginModal").style.display = "none";
     }
 
     const [name, setName] = useState('');
@@ -37,11 +31,13 @@ function Header() {
     const [password, setPassword] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
+    const [loginText, setLoginText] = useState('Sign Up')
 
     async function signUpForm(e) {
         e.preventDefault();
         console.log(name, email, password);
 
+        if(loginText == 'Sign Up'){
         try {
             await createUserWithEmailAndPassword(auth, email, password);
 
@@ -66,12 +62,8 @@ function Header() {
             setErrorMsg(e.message)
             console.log(errorMsg)
         }
-
     }
-
-    function loginForm(e) {
-        e.preventDefault();
-        console.log(email, password);
+    else{
         try {
             signInWithEmailAndPassword(auth, email, password)
                 .then((user) => {
@@ -93,6 +85,44 @@ function Header() {
         } catch (e) {
             setErrorMsg(e.message)
             console.log(errorMsg)
+        }
+    }
+
+    }
+
+    // function loginForm(e) {
+    //     e.preventDefault();
+    //     console.log(email, password);
+    //     try {
+    //         signInWithEmailAndPassword(auth, email, password)
+    //             .then((user) => {
+    //                 console.log(user)
+    //                 setSuccessMsg("Login Successful !!")
+    //                 setEmail('');
+    //                 setPassword('');
+    //                 setErrorMsg('');
+
+    //                 const uid = user.user.uid;
+    //                 dispatch(setUserId({ uid }))
+    //                 setTimeout(closeLoginModel, 10000);
+    //                 setSuccessMsg('');
+    //             }).catch((e) => {
+    //                 setErrorMsg(e.message)
+    //             })
+
+
+    //     } catch (e) {
+    //         setErrorMsg(e.message)
+    //         console.log(errorMsg)
+    //     }
+    // }
+
+    function changeLogin(){
+        if(loginText == 'Sign Up'){
+            setLoginText('Login')
+        }
+        else{
+            setLoginText('Sign Up')
         }
     }
     return (
@@ -128,10 +158,10 @@ function Header() {
                     {
                         user == null && (
                             <>
-                                <button id="myBtn" onClick={openLoginModel}><img src={login} alt='' className='signup-icon' /></button>
-                                <button id="myBtn" onClick={openModel}> <img src={signup} alt='' className='signup-icon' /></button>
+                                {/* <button id="myBtn" onClick={openLoginModel}><img src={login} alt='' className='signup-icon' /></button> */}
+                                <button id="myBtn" onClick={openModel}> <img src={login} alt='' className='signup-icon' /></button>
 
-                                <div id="myLoginModal" class="modal">
+                                {/* <div id="myLoginModal" class="modal">
                                     <div class="modal-content container">
                                         <div className="heading">
                                             <span class="close"><button id="closeLoginBtn" onClick={closeLoginModel}>X</button></span>
@@ -159,24 +189,28 @@ function Header() {
                                             )}
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div id="myModal" class="modal">
                                     <div class="modal-content container">
                                         <div className="heading">
                                             <span class="close"><button id="closeBtn" onClick={closeModel}>X</button></span>
-                                            <p>Sign Up</p>
+                                            <p>{loginText}</p>
                                         </div>
                                         <div className="contents">
                                             {successMsg && (
                                                 <div className='successMsg'>{successMsg}</div>
                                             )}
                                             <form class="form-container" onSubmit={(e) => signUpForm(e)} autoComplete='off'>
-                                                <label for="name" className='label'>Name</label>
-                                                <input type="text" placeholder="Enter Name" name="name"
-                                                    onChange={(e) => setName(e.target.value)} value={name}
-                                                    required />
-
+                                               
+                                               {loginText == 'Sign Up' && ( 
+                                                 <>
+                                                    <label for="name" className='label'>Name</label>
+                                                    <input type="text" placeholder="Enter Name" name="name"
+                                                        onChange={(e) => setName(e.target.value)} value={name}
+                                                        required />
+                                                </>
+                                                )}
                                                 <label for="email" className='label'>Email</label>
                                                 <input type="text" placeholder="Enter Email"
                                                     onChange={(e) => setEmail(e.target.value)} value={email}
@@ -187,7 +221,11 @@ function Header() {
                                                     onChange={(e) => setPassword(e.target.value)} value={password}
                                                     name="psw" required />
 
-                                                <button type="submit" class="btn">Sign Up</button>
+                                                <button type="submit" class="btn" style={{fontSize:'18px'}}> {loginText}</button>
+                                                <div className="forLogin">
+                                                {loginText == 'Sign Up' ? ( <p>If already account then <button onClick={changeLogin}>Login</button></p>):
+                                                     ( <p>Create new account <button onClick={changeLogin}>Sign Up</button></p>)}
+                                                </div>
                                             </form>
                                             {errorMsg && (
                                                 <div className='errorMsg'>{errorMsg}</div>
@@ -200,7 +238,7 @@ function Header() {
                     {user != null && (
                         <>
                             <Link class="icon-cart" to="/cart">
-                                <i class="bi bi-cart"></i><span>1</span></Link>
+                                <i class="bi bi-cart"></i><span>{cartItems && cartItems}</span></Link>
                             <button id="logoutBtn" onClick={() => {
                                 dispatch(resetUserId())
                                 nevigate('/')

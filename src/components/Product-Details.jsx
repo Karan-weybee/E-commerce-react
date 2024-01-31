@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { doc, getDoc, setDoc, arrayUnion, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, arrayUnion, updateDoc, increment } from "firebase/firestore";
 import { fs } from '../Config/Config'
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { incrementCartItem } from '../slices/productSlice';
 import { useParams } from 'react-router-dom';
 import trunk from '../img/icones/truck.png'
 import '../css/Product-Details.scss'
@@ -11,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDetails = () => {
 
+    const dispatch = useDispatch();
     var user = useSelector((state) => state.userSlice.user)
     const [errorMsg, setErrorMsg] = useState("")
     const { id } = useParams();
@@ -124,6 +126,7 @@ const ProductDetails = () => {
             setErrorMsg("");
             addProductIntoCart();
             toast("Product added into cart")
+            dispatch(incrementCartItem())
         }
         else {
             setErrorMsg("Login or signup to complete shopping");
@@ -216,7 +219,10 @@ const ProductDetails = () => {
                                         </article>
                                         <div className="errorMsg">
                                             {errorMsg && (
-                                                <b>{errorMsg}</b>
+                                                <>{
+                                                document.getElementById("myModal").style.display = "block"
+                                                }
+                                                </>
                                             )}
                                         </div>
                                         <p>
