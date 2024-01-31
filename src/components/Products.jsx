@@ -5,6 +5,7 @@ import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import '../css/Products.scss'
 import '../css/priceRange.scss'
 import filterIcon from '../img/icones/filter.png'
+import sortIcon from '../img/icones/sort.png'
 import closeWindow from '../img/icones/close-window.png'
 import close from '../img/icones/close-option.png'
 import { useDispatch, useSelector } from 'react-redux';
@@ -210,7 +211,10 @@ const Products = () => {
         </section>
 
         <div className="filterBtnSection">
+          <button className='filterBtn' onClick={openFilter}><img src={sortIcon} alt="" className='filter-icon' /><span> SORT</span></button>
+         <div className="filter-div">
           <button className='filterBtn' onClick={openFilter}><img src={filterIcon} alt="" className='filter-icon' /><span> FILTER</span></button>
+          </div>
         </div>
 
         <div className="cards-filter">

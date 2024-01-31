@@ -57,9 +57,8 @@ const Shipping = () => {
     }, [])
 
 
-    const handleSubmit = async (e) => {
+    async function handleSubmit (e){
         e.preventDefault();
-
         // await deleteDoc(doc(fs, "carts", `${user}`));
         // await setDoc(doc(fs, "orders", `${user}`), {
         //   products:products
