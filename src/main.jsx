@@ -11,7 +11,7 @@ import PopularProducts from './components/PopularProducts.jsx'
 import Header from './components/Header.jsx'
 import Cart from './components/Cart.jsx'
 import ProductDetails from './components/Product-Details.jsx'
-import Authentication from './components/Authentication.jsx'
+import CheckOut from './components/CheckOut.jsx'
 import Thanks from './components/Thanks.jsx'
 import Footer from './components/Footer.jsx'
 import Addproduct from './components/Addproduct.jsx'
@@ -65,7 +65,7 @@ const router = createBrowserRouter(
         </>
      } />
      <Route path='authentication' element={
-       <Authentication/>
+       <CheckOut/>
      } />
      <Route path='shipping' element={
        <Shipping/>

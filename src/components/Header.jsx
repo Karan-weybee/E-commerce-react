@@ -194,7 +194,7 @@ function Header() {
                                 <div id="myModal" class="modal">
                                     <div class="modal-content container">
                                         <div className="heading">
-                                            <span class="close"><button id="closeBtn" onClick={closeModel}>X</button></span>
+                                            <span class="close"><button id="closeBtn" onClick={closeModel} style={{cursor:'pointer'}}>X</button></span>
                                             <p>{loginText}</p>
                                         </div>
                                         <div className="contents">

@@ -19,8 +19,11 @@ const Authentication = () => {
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
     const [postalCode, setPostalCode] = useState('')
+    const [state,setState]=useState('Gujrat')
     const [country, setCountry] = useState('india')
-
+    const [discountValue,setDiscountValue]=useState(false)
+    
+    console.log(discountValue)
     async function getCartProducts() {
         await getDoc(doc(fs, `carts`, `${user}`)).then((document) => {
             if (document.exists()) {
@@ -57,7 +60,7 @@ const Authentication = () => {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log(contact, firstName, secondName, address, city, postalCode, country)
+        console.log(contact, firstName, secondName, address, city, postalCode,state, country)
         // Add a new document in collection "cities"
         await setDoc(doc(fs, "shipping", `${user}`), {
            contact:contact,
@@ -66,6 +69,7 @@ const Authentication = () => {
            address:address,
            city:city,
            postalCode:postalCode,
+           state:state,
            country:country
         });
 
@@ -114,13 +118,14 @@ const Authentication = () => {
                                         <label class="title" for="contact-email-phone">Contact</label>
                                         <p>
                                             Do you have an account?
-                                            <a href="#">Login</a>
+                                            <a style={{marginLeft:'0.5em'}} href="#">Login</a>
                                         </p>
                                     </div>
                                     <input placeholder="Email or mobile phone number" id="contact_email_phone"
                                         name="contact_email_phone" type="text" value={contact} onChange={(e) => setContact(e.target.value)} required />
                                     <article class="checkbox">
-                                        <input type="checkbox" name="newsletter" id="newsletter" />
+                                        <input type="checkbox" name="newsletter" id="newsletter" value={discountValue} onChange={(e)=>{
+                                            setDiscountValue(!discountValue)}}/>
                                         <label for="newsletter">
                                             Add me to Candleaf newsletter for a 10% discount</label>
                                     </article>
@@ -152,8 +157,8 @@ const Authentication = () => {
                                         </p>
                                         <div class="select">
                                             <span>Province</span>
-                                            <select name="province" id="province">
-                                                <option value="">Province</option>
+                                            <select name="province" id="province" value={state} onSelect={(e) => setState(e.target.value)}>
+                                                <option value="Gujrat">Gujrat</option>
                                             </select>
                                         </div>
                                     </div>
@@ -206,11 +211,15 @@ const Authentication = () => {
                                         <span class="price">${grandTotal && grandTotal}</span>
                                     </p>
                                     <p>Shipping
-                                        <span>Calculated at the next step</span>
+                                    {discountValue && <span>10% discount Added</span>}
+                                    {!discountValue&&(<><span>Calculated at the next step</span></>)}
                                     </p>
                                 </div>
                                 <p>Total
-                                    <span class="price-total">${grandTotal && grandTotal}</span>
+                                    <span class="price-total">$
+                                    {discountValue && (grandTotal-grandTotal*10/100)}
+                                {!discountValue && grandTotal}
+                                    </span>
                                 </p>
                             </div>
                             <article class="summary-product-button">
@@ -223,7 +232,11 @@ const Authentication = () => {
                                         <i class="bi bi-chevron-up"></i>
                                     </p>
                                 </div>
-                                <p class="price">${grandTotal && grandTotal}</p>
+                                <p class="price">$
+                                {discountValue && (grandTotal-grandTotal*10/100)}
+                                {!discountValue && grandTotal}
+                                
+                                </p>
                             </article>
                         </section>
                     </section>

@@ -10,7 +10,7 @@ import Testimonial from './components/Testimonial';
 import PopularProducts from './components/PopularProducts';
 import Cart from './components/Cart';
 import ProductDetails from './components/Product-Details';
-import Authentication from './components/Authentication';
+import Authentication from './components/CheckOut';
 import Thanks from './components/Thanks';
 import { useSelector } from 'react-redux';
 import { getDoc,doc } from 'firebase/firestore';
