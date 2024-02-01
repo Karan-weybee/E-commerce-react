@@ -4,7 +4,7 @@ import cart from '../img/fotos/spiced-mint-cart.png'
 import logo from '../img/logos/logo.png'
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { getDoc, doc,deleteDoc,setDoc} from 'firebase/firestore';
+import { getDoc, doc,deleteDoc,setDoc,updateDoc,addDoc,collection} from 'firebase/firestore';
 import { fs } from '../Config/Config';
 import {
     PaymentElement,
@@ -24,6 +24,7 @@ const Shipping = () => {
     const [contact, setContact] = useState('')
     const [address, setAddress] = useState('')
     const [products, setProducts] = useState('')
+    const [orderProducts,setOrderProducts]=useState('')
     const [grandTotal, setGrandTotal] = useState(0)
     async function getCartProducts() {
         await getDoc(doc(fs, `carts`, `${user}`)).then((document) => {
@@ -58,59 +59,79 @@ const Shipping = () => {
 
 
     async function handleSubmit (){
-      console.log("khgjd")
-        // await deleteDoc(doc(fs, "carts", `${user}`));
-        // await setDoc(doc(fs, "orders", `${user}`), {
-        //   products:products
-        //  });
+      console.log("success")
+      var card = []
+      await getDoc(doc(fs, `carts`, `${user}`)).then(async (document) => {
+        if (document.exists()) {
+            
+            console.log("total")
+            setGrandTotal((grandTotal) => (0))
 
-        if (elements == null) {
-            return;
+           await Promise.all(document.data().products.map(async (product) => {
+                // console.log(product.productId, " => ", product);
+
+                await getDoc(doc(fs, `products`, `${product.productId}`)).then((docs) => {
+                    if (docs.exists()) {
+                        card.push({ ...product, 'url': docs.data().url, 'title': docs.data().title, 'price': docs.data().price, 'discount': docs.data().discount })
+                    }
+                })
+                setGrandTotal((grandTotal) => (grandTotal + product.total))
+
+            }))
+
+            // setOrderProducts(card);
+            console.log(card)
+            addOrder(card)
+            console.log(card)
         }
+    })
+      
 
-        // Trigger form validation and wallet collection
-        const { error: submitError } = await elements.submit();
-        if (submitError) {
-            // Show error to your customer
-            setErrorMessage(submitError.message);
-            return;
-        }
+  
+    }
 
-        // Create the PaymentIntent and obtain clientSecret from your server endpoint
-        const res = await fetch('/create-intent', {
-            method: 'POST',
+    async function addOrder(card){
+        const order= await addDoc(collection(fs, "orders"), {
+            date : String(new Date()),
+            products : card
+         })
+         console.log(order.id)
+     
+         await getDoc(doc(fs, `user-orders`, `${user}`)).then((document) => {
+             if (document.exists()) {
+                 var orders = [...document.data().orders,order.id]
+                 updateOrderList(orders);
+             }
+             else{
+                 addOrderList([order.id]);
+             }
+     
+         });
+    }
+
+    async function updateOrderList(orders){
+        await updateDoc(doc(fs, `user-orders`, `${user}`), {
+            orders:orders
         });
+    }
 
-        const { client_secret: clientSecret } = await res.json();
-
-        const { error } = await stripe.confirmPayment({
-
-            elements,
-            clientSecret,
-            confirmParams: {
-                return_url: 'https://example.com/order/123/complete',
-            },
+    async function addOrderList(orders){
+        const docRef = await setDoc(doc(fs, `user-orders`, `${user}`), {
+            orders:orders
         });
-
-        if (error) {
-
-            setErrorMessage(error.message);
-        } else {
-
-        }
-    };
-
+      console.log(docRef)
+    }
     return (
         <>
             <section class="container">
                 <section class="page-shipping">
                     <section class="logo-candleat">
-                        <h1><a href="./">
+                        <h1><Link to="/">
                             <figure>
                                 <img src={logo}
                                     alt="logo candleaf" />
                             </figure>
-                        </a></h1>
+                        </Link></h1>
                     </section>
                     <section class="account-details">
                         <section class="section-left">

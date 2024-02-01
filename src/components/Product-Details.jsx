@@ -108,17 +108,6 @@ const ProductDetails = () => {
         if ($("#quantity").val() == 1) $(".btn-less").css('color', '#A7A7A7')
     })
 
-    // async function addProductIntoCart() {
-
-    //     await setDoc(doc(fs, `cart${user}`, `${id}`), {
-    // productId: `${id}`,
-    // qty: Number($("#quantity").val()),
-    // total: Number(Number($("#quantity").val()) * (product.price - (product.price * product.discount / 100)))
-    //     });
-
-    //     console.log("new cart added")
-
-    // }
     const addToCart = (e) => {
         e.preventDefault();
         console.log(user)

@@ -19,6 +19,8 @@ import { Provider } from 'react-redux'
 import { store } from './app/store.js'
 import Shipping from './components/Shipping.jsx'
 import ProductSection from '../src/components/ProductSection.jsx'
+import Orders from './components/Orders.jsx'
+import SingleOrder from './components/SingleOrder.jsx'
 
 
 const router = createBrowserRouter(
@@ -51,6 +53,24 @@ const router = createBrowserRouter(
       <Header />
       <main>
         <Cart/>
+        </main>
+        <Footer/>
+        </>
+     } />
+      <Route path='orders' element={
+      <>
+      <Header />
+      <main>
+        <Orders/>
+        </main>
+        <Footer/>
+        </>
+     } />
+     <Route path='order/:id' element={
+      <>
+      <Header />
+      <main>
+        <SingleOrder/>
         </main>
         <Footer/>
         </>

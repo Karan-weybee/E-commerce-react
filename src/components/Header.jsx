@@ -37,56 +37,57 @@ function Header() {
         e.preventDefault();
         console.log(name, email, password);
 
-        if(loginText == 'Sign Up'){
-        try {
-            await createUserWithEmailAndPassword(auth, email, password);
+        if (loginText == 'Sign Up') {
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
 
-            const docRef = await addDoc(collection(fs, "users"), {
-                Name: name,
-                Email: email,
-                Password: password
-            });
-            setSuccessMsg("SignUp Successful !!")
-            setName('');
-            setEmail('');
-            setPassword('');
-            setErrorMsg('');
+                const docRef = await addDoc(collection(fs, "users"), {
+                    Name: name,
+                    Email: email,
+                    Password: password,
+                    orders:[]
+                });
+                setSuccessMsg("SignUp Successful !!")
+                setName('');
+                setEmail('');
+                setPassword('');
+                setErrorMsg('');
 
-            const uid = docRef.firestore._authCredentials.currentUser.uid;
-            dispatch(setUserId({ uid }))
-            setTimeout((
-                closeModel()), 3000)
-            setSuccessMsg("");
+                const uid = docRef.firestore._authCredentials.currentUser.uid;
+                dispatch(setUserId({ uid }))
+                setTimeout((
+                    closeModel()), 3000)
+                setSuccessMsg("");
 
-        } catch (e) {
-            setErrorMsg(e.message)
-            console.log(errorMsg)
+            } catch (e) {
+                setErrorMsg(e.message)
+                console.log(errorMsg)
+            }
         }
-    }
-    else{
-        try {
-            signInWithEmailAndPassword(auth, email, password)
-                .then((user) => {
-                    console.log(user)
-                    setSuccessMsg("Login Successful !!")
-                    setEmail('');
-                    setPassword('');
-                    setErrorMsg('');
+        else {
+            try {
+                signInWithEmailAndPassword(auth, email, password)
+                    .then((user) => {
+                        console.log(user)
+                        setSuccessMsg("Login Successful !!")
+                        setEmail('');
+                        setPassword('');
+                        setErrorMsg('');
 
-                    const uid = user.user.uid;
-                    dispatch(setUserId({ uid }))
-                    setTimeout(closeLoginModel, 10000);
-                    setSuccessMsg('');
-                }).catch((e) => {
-                    setErrorMsg(e.message)
-                })
+                        const uid = user.user.uid;
+                        dispatch(setUserId({ uid }))
+                        setTimeout(closeLoginModel, 10000);
+                        setSuccessMsg('');
+                    }).catch((e) => {
+                        setErrorMsg(e.message)
+                    })
 
 
-        } catch (e) {
-            setErrorMsg(e.message)
-            console.log(errorMsg)
+            } catch (e) {
+                setErrorMsg(e.message)
+                console.log(errorMsg)
+            }
         }
-    }
 
     }
 
@@ -117,13 +118,17 @@ function Header() {
     //     }
     // }
 
-    function changeLogin(){
-        if(loginText == 'Sign Up'){
+    function changeLogin() {
+        if (loginText == 'Sign Up') {
             setLoginText('Login')
         }
-        else{
+        else {
             setLoginText('Sign Up')
         }
+    }
+
+    function showProfileDropDown(){
+        $('.profile-dropDown').toggleClass('show');
     }
     return (
         <header>
@@ -194,7 +199,7 @@ function Header() {
                                 <div id="myModal" class="modal">
                                     <div class="modal-content container">
                                         <div className="heading">
-                                            <span class="close"><button id="closeBtn" onClick={closeModel} style={{cursor:'pointer'}}>X</button></span>
+                                            <span class="close"><button id="closeBtn" onClick={closeModel} style={{ cursor: 'pointer' }}>X</button></span>
                                             <p>{loginText}</p>
                                         </div>
                                         <div className="contents">
@@ -202,14 +207,14 @@ function Header() {
                                                 <div className='successMsg'>{successMsg}</div>
                                             )}
                                             <form class="form-container" onSubmit={(e) => signUpForm(e)} autoComplete='off'>
-                                               
-                                               {loginText == 'Sign Up' && ( 
-                                                 <>
-                                                    <label for="name" className='label'>Name</label>
-                                                    <input type="text" placeholder="Enter Name" name="name"
-                                                        onChange={(e) => setName(e.target.value)} value={name}
-                                                        required />
-                                                </>
+
+                                                {loginText == 'Sign Up' && (
+                                                    <>
+                                                        <label for="name" className='label'>Name</label>
+                                                        <input type="text" placeholder="Enter Name" name="name"
+                                                            onChange={(e) => setName(e.target.value)} value={name}
+                                                            required />
+                                                    </>
                                                 )}
                                                 <label for="email" className='label'>Email</label>
                                                 <input type="text" placeholder="Enter Email"
@@ -221,10 +226,10 @@ function Header() {
                                                     onChange={(e) => setPassword(e.target.value)} value={password}
                                                     name="psw" required />
 
-                                                <button type="submit" class="btn" style={{fontSize:'18px'}}> {loginText}</button>
+                                                <button type="submit" class="btn" style={{ fontSize: '18px' }}> {loginText}</button>
                                                 <div className="forLogin">
-                                                {loginText == 'Sign Up' ? ( <p>If already account then <button onClick={changeLogin}>Login</button></p>):
-                                                     ( <p>Create new account <button onClick={changeLogin}>Sign Up</button></p>)}
+                                                    {loginText == 'Sign Up' ? (<p>If already account then <button onClick={changeLogin}>Login</button></p>) :
+                                                        (<p>Create new account <button onClick={changeLogin}>Sign Up</button></p>)}
                                                 </div>
                                             </form>
                                             {errorMsg && (
@@ -237,15 +242,34 @@ function Header() {
                         )}
                     {user != null && (
                         <>
-                            <Link class="icon-cart" to="/cart">
-                                <i class="bi bi-cart"></i><span>{cartItems && cartItems}</span></Link>
-                            <button id="logoutBtn" onClick={() => {
+                            <Link class="icon-cart" to="/cart" style={{ marginTop: '-3px' }}>
+                                <i class="bi bi-cart"></i><span>{cartItems && cartItems}</span>
+                                <div style={{ color: '#56B180', fontSize: '13px', marginTop: '9px' }}>Bag</div>
+                            </Link>
+                            <button id="logoutBtn" className='sub-menu-profile' onClick={showProfileDropDown}>
+                                <>
+                                <img src={login} alt='' className='profile-icon' />
+                                <div style={{ color: '#56B180', marginLeft: '10px' }}>Profile</div>
+                                </>   
+                            <ul className='profile-dropDown'>
+                                <li><a href="./#products">Profile</a></li>
+                                <li><Link to="/orders">Orders</Link></li>
+                                <li onClick={() => {
                                 dispatch(resetUserId())
                                 nevigate('/')
-                            }}><img src={logout} alt='' className='logout-icon' /></button>
+                            }}><a href="#" style={{display:'flex',paddingTop:'0px'}}>Logout 
+                            <img src={logout} alt='' className='logout-icon' />
+                            </a></li>
+                            </ul>
+                            </button>
                         </>
                     )
                     }
+
+                    {/* onClick={() => {
+                                dispatch(resetUserId())
+                                nevigate('/')
+                            }} */}
 
 
                 </article>

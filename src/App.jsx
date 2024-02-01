@@ -19,12 +19,20 @@ import { Outlet } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { useDispatch } from 'react-redux';
 import { setCartItems } from './slices/productSlice';
+import { useLocation } from 'react-router-dom';
 import {
   Elements
 } from '@stripe/react-stripe-js';
 const stripePromise = loadStripe('pk_test_51OeAFgSGf7AKq6X3WiqzagHRjBlEpF3JNOIK0YfroX0n3tpr6xOdTnm5TkYdI4qwjkTSs3Ud4DMu8AiC3QtbEcFO00z2Pt58DP');
 
 function App() {
+  const {pathname}= useLocation();
+  console.log(pathname)
+
+  useEffect(()=>{
+    window.scrollTo({top:0,behavior:'instant'})
+  },[pathname])
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userSlice.user);
    const [grandTotal,setGrandTotal]=useState(1);
@@ -60,6 +68,7 @@ const options = {
     /*...*/
   },
 };
+
 
   return (
     <>

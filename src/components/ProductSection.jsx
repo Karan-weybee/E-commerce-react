@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { auth, fs } from '../Config/Config'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import SingleProduct from './SingleProduct';
 import { collection, getDocs } from "firebase/firestore";
@@ -9,11 +9,10 @@ import '../css/Products.scss'
 import '../css/priceRange.scss'
 
 const Products = () => {
-
     const dispatch = useDispatch();
   const nevigate = useNavigate();
   const [cards, setCards] = useState([]);
-  
+
   async function getProducts() {
     const querySnapshot = await getDocs(collection(fs, "products"));
 
@@ -38,6 +37,7 @@ const Products = () => {
     getProducts();
   }, [])
 
+ 
  const goToAllProduct = ()=>{
     nevigate('/allproducts')
  }

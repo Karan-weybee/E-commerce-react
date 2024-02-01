@@ -29,10 +29,15 @@ section {
   vertical-align: baseline;
 }
 .logout-icon{
-    height: 29px;
-    padding-top: 6px;
-    width: 34px;
+    height: 17px;
+    width: 19px;
     margin-left: 0.5em;
+}
+.profile-icon{
+  padding-top: 6px;
+  height: 29px;
+  width: 34px;
+  margin-left: 0.5em;
 }
 .signup-icon{
     height: 28px;
@@ -100,7 +105,8 @@ header.topo-fixo {
   justify-content: space-between;
   background: #fff;
   align-items: center;
-  padding: 20px 0;
+  height: 4.6875rem;
+  // padding: 20px 0;
   position: relative;
 }
 .menu-hamburger {
@@ -127,6 +133,7 @@ header.topo-fixo {
 }
 .header li a {padding: 20px;}
 .header li i {font-size: 12px;}
+
 .header li.sub-menu {position: relative;}
 .header li.sub-menu p {
   cursor: pointer;
@@ -143,6 +150,24 @@ header.topo-fixo {
 .header li.sub-menu ul li {
   background: #fff;
   padding: 20px;
+}
+.sub-menu-profile {position: relative;}
+.sub-menu-profile p {
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+}
+.sub-menu-profile ul {
+  position: absolute;
+  bottom: 60px;
+  transform: translate(-25%);
+  z-index: 1;
+}
+.sub-menu-profile ul.show {top: 66px;}
+.sub-menu-profile ul li {
+  background: #fff;
+  padding: 15px 0;
+  font-size: 15px;
 }
 .header .icons-menu {
   display: flex;

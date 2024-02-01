@@ -101,7 +101,6 @@ const CartItem = ({ id, data, setGrandTotal,setRemoveProduct }) => {
         
             // toast("Product remove from cart")
         
-       
     }
 
     return (

@@ -80,12 +80,12 @@ const Authentication = () => {
             <section class="container">
                 <section class="page-authentication">
                     <section class="logo-candleat">
-                        <h1><a href="./">
+                        <h1><Link to="/">
                             <figure>
                                 <img src={logo}
                                     alt="logo candleaf" />
                             </figure>
-                        </a></h1>
+                        </Link></h1>
                     </section>
                     <section class="account-details">
                         <section class="section-left">

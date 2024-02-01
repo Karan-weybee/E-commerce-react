@@ -11,9 +11,11 @@ import close from '../img/icones/close-option.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategories, setPriceRange } from '../slices/productSlice'
 import { query, orderBy, startAt,limit } from "firebase/firestore"; 
+import { useNavigate } from 'react-router-dom';
 
 const Products = () => {
  
+  const nevigate = useNavigate();
   const dispatch = useDispatch();
   const filterCategory = useSelector(state => state.productSlice.categories);
   const priceRange = useSelector(state => state.productSlice.priceRange);
@@ -121,8 +123,10 @@ const Products = () => {
 
   }
 
+
   useEffect(() => {
     getProducts();
+   
   }, [selectCategorys,dataLimit])
 
   // filter price 
