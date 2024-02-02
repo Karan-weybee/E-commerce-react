@@ -28,39 +28,53 @@ section {
   padding: 0;
   vertical-align: baseline;
 }
-.logout-icon{
-    height: 17px;
-    width: 19px;
-    margin-left: 0.5em;
+.logout-icon {
+  height: 17px;
+  width: 19px;
+  margin-left: 0.5em;
 }
-.profile-icon{
+.profile-icon {
   padding-top: 6px;
   height: 29px;
   width: 34px;
   margin-left: 0.5em;
 }
-.signup-icon{
-    height: 28px;
-    width: 30px;
-    margin-left: 0.5em;
+.signup-icon {
+  height: 28px;
+  width: 30px;
+  margin-left: 0.5em;
 }
-html {scroll-behavior: smooth;}
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-  font: 400 16px/1px "Poppins", Arial, Helvetica, sans-serif;
+  font:
+    400 16px/1px "Poppins",
+    Arial,
+    Helvetica,
+    sans-serif;
   background: #fff;
-  color: #1D252C;
+  color: #1d252c;
 }
 ul,
-li {list-style: none;}
-img {width: fit-content;}
+li {
+  list-style: none;
+}
+img {
+  width: fit-content;
+}
 a {
-  color: #1D293F;
+  color: #1d293f;
   text-decoration: none;
   cursor: pointer;
 }
-:focus {outline: 0;}
-:hover {transition: 0.3s ease;}
+:focus {
+  outline: 0;
+}
+:hover {
+  transition: 0.3s ease;
+}
 
 .container {
   max-width: 1110px;
@@ -68,16 +82,18 @@ a {
 }
 
 .button {
-  font: 500 20px/24px "Roboto", sans-serif;
-  background: #56B280;
+  font:
+    500 20px/24px "Roboto",
+    sans-serif;
+  background: #56b280;
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
-  border: 1px solid #56B280;
+  border: 1px solid #56b280;
 }
 .button:hover {
-  background: #FFFFFF;
-  color: #56B280;
+  background: #ffffff;
+  color: #56b280;
 }
 .button.btn-see-more {
   display: none;
@@ -122,20 +138,34 @@ header.topo-fixo {
   margin: 6px;
   transition: 0.3s all;
 }
-.menu-hamburger.show .line1 {transform: rotate(-40deg) translate(-8px, 8px);}
-.menu-hamburger.show .line2 {opacity: 0;}
-.menu-hamburger.show .line3 {transform: rotate(40deg) translate(-5px, -6px);}
+.menu-hamburger.show .line1 {
+  transform: rotate(-40deg) translate(-8px, 8px);
+}
+.menu-hamburger.show .line2 {
+  opacity: 0;
+}
+.menu-hamburger.show .line3 {
+  transform: rotate(40deg) translate(-5px, -6px);
+}
 
 .header .menu {
   display: flex;
   justify-content: space-between;
   width: 450px;
-  font: 500 16px/19px "Roboto", sans-serif;
+  font:
+    500 16px/19px "Roboto",
+    sans-serif;
 }
-.header li a {padding: 20px;}
-.header li i {font-size: 12px;}
+.header li a {
+  padding: 20px;
+}
+.header li i {
+  font-size: 12px;
+}
 
-.header li.sub-menu {position: relative;}
+.header li.sub-menu {
+  position: relative;
+}
 .header li.sub-menu p {
   cursor: pointer;
   display: flex;
@@ -147,12 +177,16 @@ header.topo-fixo {
   transform: translate(-25%);
   z-index: 1;
 }
-.header li.sub-menu ul.show {top: 47px;}
+.header li.sub-menu ul.show {
+  top: 47px;
+}
 .header li.sub-menu ul li {
   background: #fff;
   padding: 20px;
 }
-.sub-menu-profile {position: relative;}
+.sub-menu-profile {
+  position: relative;
+}
 .sub-menu-profile p {
   cursor: pointer;
   display: flex;
@@ -164,7 +198,9 @@ header.topo-fixo {
   transform: translate(-25%);
   z-index: 1;
 }
-.sub-menu-profile ul.show {top: 66px;}
+.sub-menu-profile ul.show {
+  top: 66px;
+}
 .sub-menu-profile ul li {
   background: #fff;
   padding: 15px 0;
@@ -177,178 +213,193 @@ header.topo-fixo {
   font-size: 25px;
   z-index: 4;
 }
-.header .icon-cart {position: relative; right: 10px;}
+.header .icon-cart {
+  position: relative;
+  right: 10px;
+}
 .header .icon-cart span {
   position: absolute;
-    top: -2px;
-    left: 19px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    text-align: center;
-    font: 500 9px/12px "Roboto", sans-serif;
-    color: #FFFFFF;
-    background: #56B280;
-    border-radius: 50%;
-    width: 14px;
-    height: 14px;
+  top: -2px;
+  left: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  font:
+    500 9px/12px "Roboto",
+    sans-serif;
+  color: #ffffff;
+  background: #56b280;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
 }
-#myBtn,#logoutBtn{
-    background: none;
-    border: 1px;
-    cursor: pointer;
+#myBtn,
+#logoutBtn {
+  background: none;
+  border: 1px;
+  cursor: pointer;
 }
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1; 
-    padding-top: 100px; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto;
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4);
-  }
-  
-  @keyframes showModel {
-    0%{
-      width: 70%;
-      opacity: 0.8;
-    }
-    100%{
-      opacity: 1;
-      width: 80%;
-    }
-  }
-  /* Modal Content */
-  .modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    border-radius: 8px;
-    width: 80%;
-    height: auto;
-    animation-name: showModel;
-  animation-duration: 1.1s;
-  }
-  
-  /* The Close Button */
-  .close {
-    color: #aaaaaa;
-    // position: absolute;
-    // top: 3.9em;
-    // right: 10%;
-    float: right;
-    margin-top: -17px;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  .heading p{
-    margin-top: 8px;
-  }
-  .close:hover,
-  .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  #closeBtn,#closeLoginBtn{
-    height: 31px;
-    width: 31px;
-    padding-top: 4px;
-    font-size: 24px;
-    border: 1px;
-    background: none;
-  }
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
 
-  .contents{
-    margin-top: 1.2em;
-    border-top:2px solid black;
-    padding-top: 1em;
-  }
-  
-/* Add styles to the form container */
-.form-container {
-    // max-width: 300px;
-    padding: 10px;
-    font-size: 19px;
-    background-color: white;
-  }
-  
-
-  .form-container input[type=text],input[type=number],input[type=file] {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
-    box-sizing: border-box;
-  }
-  .form-container input[type=password] {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
-    box-sizing: border-box;
-  }
-  
-  /* When the inputs get focus, do something */
-  .form-container input[type=text]:focus, .form-container input[type=password]:focus {
-    background-color: #ddd;
-    outline: none;
-  }
-  
-  /* Set a style for the submit/login button */
-  .form-container .btn {
-    background-color: #56B280;
-    color: white;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 10px;
-    margin-bottom:10px;
+@keyframes showModel {
+  0% {
+    width: 70%;
     opacity: 0.8;
   }
-  
-  /* Add a red background color to the cancel button */
-  .form-container .cancel {
-    background-color: red;
-  }
-  
-  /* Add some hover effects to buttons */
-  .form-container .btn:hover, .open-button:hover {
+  100% {
     opacity: 1;
+    width: 80%;
   }
-  .label{
-    display: block;
-    margin-bottom: 0.5em;
-  }
-  .successMsg{
-    color: #56B280;
-    padding-top: 17px;
-    padding-left: 12px;
-    font-size: 19px;
-    height: 20px;
-    margin-bottom: 1em;
 }
-.errorMsg{
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 8px;
+  width: 80%;
+  height: auto;
+  animation-name: showModel;
+  animation-duration: 1.1s;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  // position: absolute;
+  // top: 3.9em;
+  // right: 10%;
+  float: right;
+  margin-top: -17px;
+  font-size: 28px;
+  font-weight: bold;
+}
+.heading p {
+  margin-top: 8px;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#closeBtn,
+#closeLoginBtn {
+  height: 31px;
+  width: 31px;
+  padding-top: 4px;
+  font-size: 24px;
+  border: 1px;
+  background: none;
+}
+
+.contents {
+  margin-top: 1.2em;
+  border-top: 2px solid #56b280;
+  padding-top: 1em;
+}
+
+/* Add styles to the form container */
+.form-container {
+  // max-width: 300px;
+  padding: 10px;
+  font-size: 19px;
+  background-color: white;
+}
+
+.form-container input[type="text"],
+input[type="number"],
+input[type="file"] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  box-sizing: border-box;
+}
+.form-container input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  box-sizing: border-box;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type="text"]:focus,
+.form-container input[type="password"]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #56b280;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover,
+.open-button:hover {
+  opacity: 1;
+}
+.label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+.successMsg {
+  color: #56b280;
+  padding-top: 17px;
+  padding-left: 12px;
+  font-size: 19px;
+  height: 20px;
+  margin-bottom: 1em;
+}
+.errorMsg {
   color: #d65555;
   padding-top: 7px;
   padding-left: 12px;
   font-size: 16px;
   height: 17px;
 }
-.forLogin{
+.forLogin {
   margin-top: 1em;
   font-size: 16px;
-  button{
+  button {
     font-size: 18px;
-    color: #56B280;
+    color: #56b280;
     border: 1px;
     background-color: white;
   }
+}
+.showSub {
+  bottom: -195px;
+  left: 42px;
+  z-index: 2;
 }

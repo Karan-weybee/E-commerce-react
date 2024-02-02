@@ -216,9 +216,9 @@ const Products = () => {
 
   return (
     <>
-      <section id="products" class="container section-products">
-        <section class="title-section">
-          <h2 class="title">Products</h2>
+      <section id="products" className="container section-products">
+        <section className="title-section">
+          <h2 className="title">Products</h2>
           <p>Order it for you or for your beloved ones</p>
 
         </section>
@@ -246,7 +246,7 @@ const Products = () => {
             }
           </div>
 
-          <section class="cards container2">
+          <section className="cards container2">
 
             {cards.length > 0 && (
               <>{cards}</>
@@ -275,25 +275,25 @@ const Products = () => {
               </ul>
             </div>
             <div className="prices">
-              <div class="wrapper">
+              <div className="wrapper">
                 <h1><b> Price Range</b></h1>
-                <div class="price-input">
-                  <div class="field">
+                <div className="price-input">
+                  <div className="field">
                     <span>Min</span>
-                    <input type="number" class="input-min" value={minValue} onChange={(e) => setMinValue(e.target.value)} readOnly />
+                    <input type="number" className="input-min" value={minValue} onChange={(e) => setMinValue(e.target.value)} readOnly />
                   </div>
-                  <div class="separator">-</div>
-                  <div class="field">
+                  <div className="separator">-</div>
+                  <div className="field">
                     <span>Max</span>
-                    <input type="number" class="input-max" value={maxValue} onChange={(e) => setMaxValue(e.target.value)} readOnly />
+                    <input type="number" className="input-max" value={maxValue} onChange={(e) => setMaxValue(e.target.value)} readOnly />
                   </div>
                 </div>
-                <div class="slider">
-                  <div class="progress"></div>
+                <div className="slider">
+                  <div className="progress"></div>
                 </div>
-                <div class="range-input">
-                  <input type="range" class="range-min" min="0" max="10000" value={minValue} onChange={(e) => setMinValue(e.target.value)} step="100" />
-                  <input type="range" class="range-max" min="0" max="10000" value={maxValue} onChange={(e) => setMaxValue(e.target.value)} step="100" />
+                <div className="range-input">
+                  <input type="range" className="range-min" min="0" max="10000" value={minValue} onChange={(e) => setMinValue(e.target.value)} step="100" />
+                  <input type="range" className="range-max" min="0" max="10000" value={maxValue} onChange={(e) => setMaxValue(e.target.value)} step="100" />
                 </div>
               </div>
             </div>

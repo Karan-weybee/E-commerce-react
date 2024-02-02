@@ -77,9 +77,9 @@ const Authentication = () => {
     }
     return (
         <>
-            <section class="container">
-                <section class="page-authentication">
-                    <section class="logo-candleat">
+            <section className="container">
+                <section className="page-authentication">
+                    <section className="logo-candleat">
                         <h1><Link to="/">
                             <figure>
                                 <img src={logo}
@@ -87,23 +87,23 @@ const Authentication = () => {
                             </figure>
                         </Link></h1>
                     </section>
-                    <section class="account-details">
-                        <section class="section-left">
-                            <section class="breadcrumb">
+                    <section className="account-details">
+                        <section className="section-left">
+                            <section className="breadcrumb">
                                 <ul>
                                     <li>
                                         <Link
                                             to="/cart"
-                                            class="green">Cart</Link>
-                                        <i class="bi bi-chevron-right"></i>
+                                            className="green">Cart</Link>
+                                        <i className="bi bi-chevron-right"></i>
                                     </li>
                                     <li>
-                                        <a href="#" class="black">Details</a>
-                                        <i class="bi bi-chevron-right"></i>
+                                        <a href="#" className="black">Details</a>
+                                        <i className="bi bi-chevron-right"></i>
                                     </li>
                                     <li>
                                         <a href="#">Shipping</a>
-                                        <i class="bi bi-chevron-right"></i>
+                                        <i className="bi bi-chevron-right"></i>
                                     </li>
                                     <li><a href="#">Payment</a></li>
                                 </ul>
@@ -113,9 +113,9 @@ const Authentication = () => {
                                 method='post'
                                 id="form-authentication"
                                 enctype="multipart/form">
-                                <article class="contact">
+                                <article className="contact">
                                     <div>
-                                        <label class="title" for="contact-email-phone">Contact</label>
+                                        <label className="title" for="contact-email-phone">Contact</label>
                                         <p>
                                             Do you have an account?
                                             <a style={{marginLeft:'0.5em'}} href="#">Login</a>
@@ -123,16 +123,16 @@ const Authentication = () => {
                                     </div>
                                     <input placeholder="Email or mobile phone number" id="contact_email_phone"
                                         name="contact_email_phone" type="text" value={contact} onChange={(e) => setContact(e.target.value)} required />
-                                    <article class="checkbox">
+                                    <article className="checkbox">
                                         <input type="checkbox" name="newsletter" id="newsletter" value={discountValue} onChange={(e)=>{
                                             setDiscountValue(!discountValue)}}/>
                                         <label for="newsletter">
                                             Add me to Candleaf newsletter for a 10% discount</label>
                                     </article>
                                 </article>
-                                <article class="shipping">
-                                    <h3 class="title">Shipping Address</h3>
-                                    <div class="wrapper">
+                                <article className="shipping">
+                                    <h3 className="title">Shipping Address</h3>
+                                    <div className="wrapper">
                                         <p>
                                             <input id="name" name="name" type="text" placeholder="Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
                                         </p>
@@ -147,7 +147,7 @@ const Authentication = () => {
                                             placeholder="Address and Number" value={address} onChange={(e) => setAddress(e.target.value)} required />
                                     </p>
 
-                                    <div class="wrapper">
+                                    <div className="wrapper">
                                         <p>
                                             <input id="city" name="city" type="text" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} required />
                                         </p>
@@ -155,35 +155,35 @@ const Authentication = () => {
                                             <input id="postal_code" name="postal_code" type="text"
                                                 placeholder="Postal Code" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} required />
                                         </p>
-                                        <div class="select">
+                                        <div className="select">
                                             <span>Province</span>
                                             <select name="province" id="province" value={state} onSelect={(e) => setState(e.target.value)}>
                                                 <option value="Gujrat">Gujrat</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="select">
+                                    <div className="select">
                                         <span>Country/Region</span>
                                         <select name="country-region" id="country-region" value={country} onSelect={(e) => setCountry(e.target.value)} required>
                                             <option value="india">India</option>
                                         </select>
                                     </div>
-                                    <div class="checkbox">
+                                    <div className="checkbox">
                                         <input type="checkbox" name="save_info" id="save_info" />
                                         <label for="save_info">Save this informations for a future fast checkout</label>
                                     </div>
                                 </article>
-                                <article class="go_to_shipping">
+                                <article className="go_to_shipping">
                                     <p><Link to="/cart">Back to cart</Link></p>
-                                    <p><input class="button" type="submit" value="Go to shipping" /></p>
+                                    <p><input className="button" type="submit" value="Go to shipping" /></p>
                                 </article>
                             </form>
                         </section>
-                        <section class="summary-product hide">
+                        <section className="summary-product hide">
                             <div className="products-cart" style={{ height: '418px', overflowY: 'scroll', overflowX: 'hidden' }}>
                                 {cartProducts.length > 0 && (
                                     cartProducts.map((cartProduct) => (
-                                        <article class="product" key={cartProduct.productId}>
+                                        <article className="product" key={cartProduct.productId}>
                                             <figure>
                                                 <picture>
                                                     <source media="(max-width:780px)"
@@ -200,15 +200,15 @@ const Authentication = () => {
                                     ))
                                 )}
                             </div>
-                            <article class="add-code">
+                            <article className="add-code">
                                 <input type="text" name="add_code" id="add_code" placeholder="Coupon code" />
-                                <input type="button" class="button" id="add_code" value="Add code" />
+                                <input type="button" className="button" id="add_code" value="Add code" />
                             </article>
 
-                            <div class="value-product">
+                            <div className="value-product">
                                 <div>
                                     <p>Subtotal
-                                        <span class="price">${grandTotal && grandTotal}</span>
+                                        <span className="price">${grandTotal && grandTotal}</span>
                                     </p>
                                     <p>Shipping
                                     {discountValue && <span>10% discount Added</span>}
@@ -216,23 +216,23 @@ const Authentication = () => {
                                     </p>
                                 </div>
                                 <p>Total
-                                    <span class="price-total">$
+                                    <span className="price-total">$
                                     {discountValue && (grandTotal-grandTotal*10/100)}
                                 {!discountValue && grandTotal}
                                     </span>
                                 </p>
                             </div>
-                            <article class="summary-product-button">
+                            <article className="summary-product-button">
                                 <div><div>
-                                    <i class="bi bi-cart"></i>
+                                    <i className="bi bi-cart"></i>
                                     <span>1</span>
                                 </div>
                                     <p>
                                         See your order details
-                                        <i class="bi bi-chevron-up"></i>
+                                        <i className="bi bi-chevron-up"></i>
                                     </p>
                                 </div>
-                                <p class="price">$
+                                <p className="price">$
                                 {discountValue && (grandTotal-grandTotal*10/100)}
                                 {!discountValue && grandTotal}
                                 

@@ -123,9 +123,9 @@ const ProductDetails = () => {
     }
     return (
         <>
-            <main class="container">
-                <section class="page-product">
-                    <article class="free-shopping">
+            <main className="container">
+                <section className="page-product">
+                    <article className="free-shopping">
                         {product && (<p>
                             {product.discription}
                             <span>
@@ -159,13 +159,13 @@ const ProductDetails = () => {
                             </picture>
                         </figure>
                         <form id="form-quantity-product" action="#" method="post">
-                            <section class="cart">
+                            <section className="cart">
                                 <div>
-                                    <p class="price">$ {product && (<>{(product.price - (product.price * product.discount / 100))} </>)}</p>
-                                    <article class="quantity">
+                                    <p className="price">$ {product && (<>{(product.price - (product.price * product.discount / 100))} </>)}</p>
+                                    <article className="quantity">
                                         <label for="quantity" style={{ margin: 0 }}>Quantity</label>
                                         <div>
-                                            <button type="button" class="btn-less">-</button>
+                                            <button type="button" className="btn-less">-</button>
                                             <input
                                                 id="quantity"
                                                 placeholder="1"
@@ -180,17 +180,17 @@ const ProductDetails = () => {
                                                 }}
                                                 readOnly
                                             />
-                                            <button type="button" class="btn-more">+</button>
+                                            <button type="button" className="btn-more">+</button>
                                         </div>
                                     </article>
                                 </div>
-                                <article class="checkboxes">
+                                <article className="checkboxes">
                                     <article>
                                         <input type="radio" name="subscribe" id="checkbox1" checked />
                                         <label for="checkbox1">One time purchase</label>
                                     </article>
                                     <section>
-                                        <article class="check-subscribe">
+                                        <article className="check-subscribe">
                                             <article>
                                                 <input type="radio" name="subscribe" id="subscribe" />
                                                 <label for="subscribe">Subscribe and delivery every</label>
@@ -215,8 +215,8 @@ const ProductDetails = () => {
                                             )}
                                         </div>
                                         <p>
-                                            <button class="button" onClick={(e) => addToCart(e)}>
-                                                <i class="bi bi-cart"></i> + Add to cart
+                                            <button className="button" onClick={(e) => addToCart(e)}>
+                                                <i className="bi bi-cart"></i> + Add to cart
                                             </button>
                                         </p>
                                     </section>
@@ -224,7 +224,7 @@ const ProductDetails = () => {
                             </section>
                         </form>
 
-                        <article class="product-description">
+                        <article className="product-description">
                             <p>
                                 <span>Fragrance:</span> Premium quality ingredients with natural
                                 essential oils
@@ -233,7 +233,7 @@ const ProductDetails = () => {
                                 <span>Wax:</span> Top grade Soy wax that delivers a smoke less,
                                 consistent burn
                             </p>
-                            <div class="info">
+                            <div className="info">
                                 <p><span>Burning Time:</span> 70-75 hours</p>
                                 <p><span>Dimension:</span> 10cm x 5cm</p>
                                 <p><span>Weight:</span> 400g</p>

@@ -6,7 +6,7 @@ import '../css/Banner.scss'
 
 const Banner = () => {
     return (
-        <section class="banner-principal">
+        <section className="banner-principal">
           <figure>
             <picture>
               <source media="(max-width:468px)"
@@ -27,7 +27,7 @@ const Banner = () => {
             <p>
               All handmade with natural soy wax, Candleaf is a
               companion for all your pleasure moments</p>
-            <p><a href="#products" class="button"
+            <p><a href="#products" className="button"
             >Discovery our collection</a>
             </p>
           </article>

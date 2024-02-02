@@ -80,36 +80,36 @@ const Addproduct = () => {
     }
     return (<div className="addproduct">
 
-        <div class="container Addcontainer">
+        <div className="container Addcontainer">
             <div className="uploadSuccessMsg">
                 {successMsg && (<>{successMsg}</>)}
             </div>
             <form onSubmit={addProduct}>
-                <div class="row">
-                    <div class="col-25">
+                <div className="row">
+                    <div className="col-25">
                         <label for="fname">Product Name</label>
                     </div>
-                    <div class="col-75">
+                    <div className="col-75">
                         <input type="text" id="fname" name="firstname" placeholder="Your name.."
                             onChange={(e) => setTitle(e.target.value)} value={title}
                             required />
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-25">
+                <div className="row">
+                    <div className="col-25">
                         <label for="lname">Product Discription</label>
                     </div>
-                    <div class="col-75">
+                    <div className="col-75">
                         <input type="text" id="lname" name="lastname" placeholder="Your last name.."
                             onChange={(e) => setDiscription(e.target.value)} value={discription}
                             required />
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-25">
+                <div className="row">
+                    <div className="col-25">
                         <label for="country">Category</label>
                     </div>
-                    <div class="col-75">
+                    <div className="col-75">
                         <select id="country" name="country"
                             onChange={(e) => setCategory(e.target.value)} value={category}
                             required>
@@ -121,41 +121,41 @@ const Addproduct = () => {
                         </select>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-25">
+                <div className="row">
+                    <div className="col-25">
                         <label for="lname">Price</label>
                     </div>
-                    <div class="col-75">
+                    <div className="col-75">
                         <input type="number" id="price" name="price" placeholder="Price.."
                             onChange={(e) => setPrice(e.target.value)} value={price}
                             required />
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-25">
+                <div className="row">
+                    <div className="col-25">
                         <label for="lname">Discount in %</label>
                     </div>
-                    <div class="col-75">
+                    <div className="col-75">
                         <input type="number" min={0} max={100} id="discount" name="discount" placeholder="Discount.."
                             onChange={(e) => setDiscount(e.target.value)} value={discount}
                             required />
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-25">
+                <div className="row">
+                    <div className="col-25">
                         <label for="lname">Quantity</label>
                     </div>
-                    <div class="col-75">
+                    <div className="col-75">
                         <input type="number" id="Quantity" name="Quantity" placeholder="Quantity.."
                             onChange={(e) => setQuantity(e.target.value)} value={quantity}
                             required />
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-25">
+                <div className="row">
+                    <div className="col-25">
                         <label for="lname">Product Image</label>
                     </div>
-                    <div class="col-75" style={{ marginBottom: '1em' }}>
+                    <div className="col-75" style={{ marginBottom: '1em' }}>
                         <input type="file" id="image" name="image" placeholder="Image.."
                             onChange={handleUploadImage}
                             required />
@@ -164,7 +164,7 @@ const Addproduct = () => {
                         {imageError && (<>{imageError}</>)}
                     </div>
                 </div>
-                <div class="row">
+                <div className="row">
                     <input type="submit" value="Submit" />
                 </div>
             </form>
