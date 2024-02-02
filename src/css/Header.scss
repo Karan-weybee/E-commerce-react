@@ -386,7 +386,8 @@ input[type="file"] {
   padding-top: 7px;
   padding-left: 12px;
   font-size: 16px;
-  height: 17px;
+  height: auto;
+  line-height: 1em;
 }
 .forLogin {
   margin-top: 1em;
