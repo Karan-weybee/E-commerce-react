@@ -130,10 +130,14 @@ function Header() {
     function showProfileDropDown(){
         $('.profile-dropDown').toggleClass('show');
     }
+
+    function showDropDown(){
+        $(".menu-hamburger, nav").toggleClass('show')
+    }
     return (
         <header>
             <section class="container header">
-                <div class="menu-hamburger">
+                <div class="menu-hamburger" onClick={showDropDown}>
                     <div class="line1"></div>
                     <div class="line2"></div>
                     <div class="line3"></div>

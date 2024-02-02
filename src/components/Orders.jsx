@@ -28,6 +28,20 @@ const Orders = () => {
         return formattedDate;
     };
 
+    String.prototype.hashCode = function() {
+        var hash = 0,
+          i, chr;
+        if (this.length === 0) return hash;
+        for (i = 0; i < 5; i++) {
+          chr = this.charCodeAt(i);
+          hash = ((hash << 5) - hash) + chr;
+          hash |= 0; // Convert to 32-bit integer
+        }
+        return Math.abs(hash) % 100000; // Limit to 5 digits
+      }
+      
+      
+
 
     const nevigate = useNavigate();
     const user = useSelector((state) => state.userSlice.user);
@@ -72,12 +86,12 @@ const Orders = () => {
                     <th> Order Id</th>
                     <th>Date</th>
                     <th>Total</th>
-                    <th>View</th>
+                    <th className='view'>View</th>
                 </tr>
 
                 {orderList && orderList.map((orderlist) => (
                     <tr key={orderlist.orderId}>
-                        <td>{orderlist.orderId}</td>
+                        <td>{orderlist.orderId.hashCode()}</td>
                         <td>{orderlist.date}</td>
                         <td>{orderlist.total}</td>
                         <td><button onClick={()=>{nevigate(`/order/${orderlist.orderId}`)}}>Details</button></td>

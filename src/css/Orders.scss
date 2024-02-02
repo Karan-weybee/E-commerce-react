@@ -25,6 +25,14 @@
     border-bottom: 1px solid #DDD;
   }
   
+  @media (max-width:'768px') {
+    table{
+        .view{
+           color: white;
+        }
+    }
+    
+  }
   tr:hover {background-color: #c2f5d9;
   button{
     background-color: white;

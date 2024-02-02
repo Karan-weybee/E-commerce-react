@@ -8,9 +8,7 @@ $(document).ready(function() {
     })
 
     // menu
-    $(".menu-hamburger").click(function(){
-        $(".menu-hamburger, nav").toggleClass('show')
-    })
+   
     $(".sub-menu").click(function(){
         $(".sub-menu ul").toggleClass('show')
     })

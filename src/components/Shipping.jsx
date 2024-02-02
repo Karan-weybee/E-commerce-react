@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import cart_mobile from '../img/fotos/spiced-mint-cart-mobile.png'
 import cart from '../img/fotos/spiced-mint-cart.png'
 import logo from '../img/logos/logo.png'
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { getDoc, doc,deleteDoc,setDoc,updateDoc,addDoc,collection} from 'firebase/firestore';
 import { fs } from '../Config/Config';
+import {setCartItems} from '../slices/productSlice'
 import {
     PaymentElement,
     useStripe,
@@ -14,6 +15,7 @@ import {
 import '../css/Shipping.scss'
 
 const Shipping = () => {
+    const dispatch = useDispatch();
     const nevigate = useNavigate();
     const stripe = useStripe();
     const elements = useElements();
@@ -107,6 +109,10 @@ const Shipping = () => {
              }
      
          });
+
+         
+        await deleteDoc(doc(fs, "carts", `${user}`)); 
+        dispatch(setCartItems(0))
     }
 
     async function updateOrderList(orders){
