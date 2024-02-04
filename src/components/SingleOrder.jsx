@@ -8,6 +8,7 @@ import CartItem from "./CartItem";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import OrderItem from "./OrderItem";
+import { getOrder } from "../firebase/api/order";
 
 const SingleOrder = () => {
   const nevigate = useNavigate();
@@ -19,7 +20,7 @@ const SingleOrder = () => {
 
   console.log("grandtotal :- ", grandTotal);
   async function getOrderProducts() {
-    await getDoc(doc(fs, `orders`, `${id}`)).then((doc) => {
+    await getOrder(id).then((doc) => {
       if (doc.exists()) {
         console.log(doc.data());
         var card = [];

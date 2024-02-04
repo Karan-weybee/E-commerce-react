@@ -21,6 +21,16 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import "../css/Shipping.scss";
+import { getAllCarts } from "../firebase/api/cart";
+import { getSingleProduct } from "../firebase/api/product";
+import { getShipping } from "../firebase/api/shipping";
+import {
+  addNewOrder,
+  userOrders,
+  updateOrder,
+  setOrderList,
+} from "../firebase/api/order";
+import { deleteCart } from "../firebase/api/cart";
 
 const Shipping = () => {
   const dispatch = useDispatch();
@@ -37,7 +47,7 @@ const Shipping = () => {
   const [orderProducts, setOrderProducts] = useState("");
   const [grandTotal, setGrandTotal] = useState(0);
   async function getCartProducts() {
-    await getDoc(doc(fs, `carts`, `${user}`)).then((document) => {
+    await getAllCarts(user).then((document) => {
       if (document.exists()) {
         var card = [];
         console.log("total");
@@ -48,7 +58,7 @@ const Shipping = () => {
         });
       }
     });
-    await getDoc(doc(fs, `shipping`, `${user}`)).then((document) => {
+    await getShipping(user).then((document) => {
       if (document.exists()) {
         setContact(document.data().contact);
         setAddress(document.data().address);
@@ -67,7 +77,7 @@ const Shipping = () => {
   async function handleSubmit() {
     console.log("success");
     var card = [];
-    await getDoc(doc(fs, `carts`, `${user}`)).then(async (document) => {
+    await getAllCarts(user).then(async (document) => {
       if (document.exists()) {
         console.log("total");
         setGrandTotal((grandTotal) => 0);
@@ -76,19 +86,17 @@ const Shipping = () => {
           document.data().products.map(async (product) => {
             // console.log(product.productId, " => ", product);
 
-            await getDoc(doc(fs, `products`, `${product.productId}`)).then(
-              (docs) => {
-                if (docs.exists()) {
-                  card.push({
-                    ...product,
-                    url: docs.data().url,
-                    title: docs.data().title,
-                    price: docs.data().price,
-                    discount: docs.data().discount,
-                  });
-                }
+            await getSingleProduct(`${product.productId}`).then((docs) => {
+              if (docs.exists()) {
+                card.push({
+                  ...product,
+                  url: docs.data().url,
+                  title: docs.data().title,
+                  price: docs.data().price,
+                  discount: docs.data().discount,
+                });
               }
-            );
+            });
             setGrandTotal((grandTotal) => grandTotal + product.total);
           })
         );
@@ -102,35 +110,29 @@ const Shipping = () => {
   }
 
   async function addOrder(card) {
-    const order = await addDoc(collection(fs, "orders"), {
-      date: String(new Date()),
-      products: card,
-    });
+    const order = await addNewOrder(card);
     console.log(order.id);
 
-    await getDoc(doc(fs, `user-orders`, `${user}`)).then((document) => {
+    await userOrders(user).then((document) => {
       if (document.exists()) {
         var orders = [...document.data().orders, order.id];
+
         updateOrderList(orders);
       } else {
         addOrderList([order.id]);
       }
     });
 
-    await deleteDoc(doc(fs, "carts", `${user}`));
+    await deleteCart(user);
     dispatch(setCartItems(0));
   }
 
   async function updateOrderList(orders) {
-    await updateDoc(doc(fs, `user-orders`, `${user}`), {
-      orders: orders,
-    });
+    await updateOrder(user, orders);
   }
 
   async function addOrderList(orders) {
-    const docRef = await setDoc(doc(fs, `user-orders`, `${user}`), {
-      orders: orders,
-    });
+    const docRef = await setOrderList(user, orders);
     console.log(docRef);
   }
   return (

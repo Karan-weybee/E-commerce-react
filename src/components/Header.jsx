@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { auth, fs } from "../Config/Config";
-import { addDoc, collection } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUserId, userSelector } from "../slices/userSlice";
 import { setUserId } from "../slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import logo from "../img/logos/logo.png";
 import logout from "../img/icones/check-out.png";
-import signup from "../img/icones/login.png";
 import login from "../img/icones/user.png";
 import { Link } from "react-router-dom";
 import "../css/Header.scss";
-import { func } from "prop-types";
+import { createUser } from "../firebase/api/auth";
+import { loginUser } from "../firebase/api/auth";
 
 function Header() {
   const nevigate = useNavigate();
@@ -44,14 +38,7 @@ function Header() {
 
     if (loginText == "Sign Up") {
       try {
-        await createUserWithEmailAndPassword(auth, email, password);
-
-        const docRef = await addDoc(collection(fs, "users"), {
-          Name: name,
-          Email: email,
-          Password: password,
-          orders: [],
-        });
+        const docRef = await createUser(name, email, password);
         // setSuccessMsg("SignUp Successful !!")
         setName("");
         setEmail("");
@@ -65,27 +52,20 @@ function Header() {
         // setSuccessMsg("");
       } catch (e) {
         setErrorMsg(e.message);
-        console.log(errorMsg);
       }
     } else {
       try {
-        signInWithEmailAndPassword(auth, email, password)
-          .then((user) => {
-            console.log(user);
-            // setSuccessMsg("Login Successful !!")
-            setEmail("");
-            setPassword("");
-            setErrorMsg("");
+        const user = await loginUser(email, password);
+        console.log(user);
+        setEmail("");
+        setPassword("");
+        setErrorMsg("");
 
-            const uid = user.user.uid;
-            dispatch(setUserId({ uid }));
-            setTimeout(closeModel(), 3000);
-            // setSuccessMsg('');
-            toast("User successfully login");
-          })
-          .catch((e) => {
-            setErrorMsg(e.message);
-          });
+        const uid = user.user.uid;
+        dispatch(setUserId({ uid }));
+        setTimeout(closeModel(), 3000);
+        // setSuccessMsg('');
+        toast("User successfully login");
       } catch (e) {
         setErrorMsg(e.message);
         console.log(errorMsg);

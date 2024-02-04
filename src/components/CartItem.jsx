@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { setDoc, doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
-import { fs } from "../Config/Config";
 import { useSelector, useDispatch } from "react-redux";
 import { decrementCartItem } from "../slices/productSlice";
 import { ToastContainer, toast } from "react-toastify";
+import { getAllCarts, updateCart } from "../firebase/api/cart";
+import { getSingleProduct } from "../firebase/api/product";
 
 const CartItem = ({ id, data, setGrandTotal, setRemoveProduct }) => {
   const dispatch = useDispatch();
@@ -17,8 +17,7 @@ const CartItem = ({ id, data, setGrandTotal, setRemoveProduct }) => {
   const [total, setTotal] = useState(data.total);
 
   async function getProduct() {
-    const docRef = doc(fs, "products", id);
-    const docSnap = await getDoc(docRef);
+    const docSnap = await getSingleProduct(id);
 
     if (docSnap.exists()) {
       setProduct(docSnap.data());
@@ -73,7 +72,7 @@ const CartItem = ({ id, data, setGrandTotal, setRemoveProduct }) => {
     console.log("qty:- ", qty);
     console.log("total:- ", total);
 
-    await getDoc(doc(fs, `carts`, `${user}`)).then((doc) => {
+    await getAllCarts(user).then((doc) => {
       if (doc.exists()) {
         let items = doc.data().products;
 
@@ -99,9 +98,7 @@ const CartItem = ({ id, data, setGrandTotal, setRemoveProduct }) => {
   }
 
   async function updateItemInDoc(items) {
-    await updateDoc(doc(fs, `carts`, `${user}`), {
-      products: items,
-    });
+    await updateCart(user, items);
   }
 
   const removeProduct = async () => {

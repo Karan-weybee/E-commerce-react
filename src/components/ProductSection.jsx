@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { auth, fs } from "../Config/Config";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import SingleProduct from "./SingleProduct";
-import { collection, getDocs } from "firebase/firestore";
 import { setDataLimit } from "../slices/productSlice";
+import { getAllProducts } from "../firebase/api/product";
 import "../css/Products.scss";
 import "../css/priceRange.scss";
 
@@ -14,7 +13,7 @@ const Products = () => {
   const [cards, setCards] = useState([]);
 
   async function getProducts() {
-    const querySnapshot = await getDocs(collection(fs, "products"));
+    const querySnapshot = await getAllProducts();
 
     var datalimit = 0;
     var card = [];

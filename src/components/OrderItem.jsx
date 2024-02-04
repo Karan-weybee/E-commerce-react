@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { fs } from "../Config/Config";
 import { useSelector, useDispatch } from "react-redux";
 
 const OrderItem = ({ id, data }) => {

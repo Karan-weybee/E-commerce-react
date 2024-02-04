@@ -7,6 +7,7 @@ import "../css/Cart.scss";
 import CartItem from "./CartItem";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { getAllCarts } from "../firebase/api/cart";
 
 const Cart = () => {
   const nevigate = useNavigate();
@@ -17,7 +18,7 @@ const Cart = () => {
 
   console.log("grandtotal :- ", grandTotal);
   async function getCartProducts() {
-    await getDoc(doc(fs, `carts`, `${user}`)).then((doc) => {
+    await getAllCarts(user).then((doc) => {
       if (doc.exists()) {
         console.log(doc.data().products[0].productId);
         var card = [];
