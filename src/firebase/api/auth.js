@@ -20,8 +20,8 @@ export const createUser = async (name, email, password) => {
 
 export const loginUser = async (email, password) => {
   const user = signInWithEmailAndPassword(auth, email, password).then(
-    (user) => {
-      return user;
+    (users) => {
+      return users;
     }
   );
 
