@@ -142,7 +142,7 @@ const Products = () => {
     const rangeInput = document.querySelectorAll(".range-input input"),
       priceInput = document.querySelectorAll(".price-input input"),
       range = document.querySelector(".slider .progress");
-    let priceGap = 1000;
+    let priceGap = 10;
 
     priceInput.forEach((input) => {
       input.addEventListener("input", (e) => {
@@ -167,7 +167,7 @@ const Products = () => {
         let minVal = parseInt(minValue),
           maxVal = parseInt(maxValue);
 
-        if (maxVal - minVal < priceGap) {
+        if (maxVal - minVal + 500 < priceGap) {
           if (e.target.className === "range-min") {
             rangeInput[0].value = maxVal - priceGap;
           } else {
