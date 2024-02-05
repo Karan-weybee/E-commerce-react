@@ -63,7 +63,7 @@ function Header() {
 
         const uid = user.user.uid;
         dispatch(setUserId({ uid }));
-        setTimeout(closeModel(), 3000);
+        closeModel();
         // setSuccessMsg('');
         toast("User successfully login");
       } catch (e) {

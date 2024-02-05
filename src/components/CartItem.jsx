@@ -4,6 +4,7 @@ import { decrementCartItem } from "../slices/productSlice";
 import { ToastContainer, toast } from "react-toastify";
 import { getAllCarts, updateCart } from "../firebase/api/cart";
 import { getSingleProduct } from "../firebase/api/product";
+import TableSkeleton from "./TableSkeleton";
 
 const CartItem = ({ id, data, setGrandTotal, setRemoveProduct }) => {
   const dispatch = useDispatch();
@@ -104,9 +105,10 @@ const CartItem = ({ id, data, setGrandTotal, setRemoveProduct }) => {
   const removeProduct = async () => {
     await chnageQty(0, 0);
 
-    setRemoveProduct((remove) => remove + 1);
-
-    // toast("Product remove from cart")
+    toast("Product remove from cart");
+    setTimeout(() => {
+      setRemoveProduct((remove) => remove + 1);
+    }, 2000);
   };
 
   return (

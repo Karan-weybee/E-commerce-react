@@ -104,7 +104,7 @@ const Shipping = () => {
         // setOrderProducts(card);
         console.log(card);
         addOrder(card);
-        console.log(card);
+        nevigate("/thanks");
       }
     });
   }

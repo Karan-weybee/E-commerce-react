@@ -146,27 +146,32 @@ const ProductDetails = () => {
           </article>
           <section>
             {product && <h2>{product.title}® </h2>}
-            <figure>
-              <picture>
-                <source
-                  media="(max-width:780px)"
-                  srcset={product.url}
-                  style={{
-                    width: "528px",
-                    height: "396px",
-                  }}
-                />
-                <img
-                  src={product.url}
-                  alt="product spiced mint"
-                  style={{
-                    width: "338.311px",
-                    height: "253.733px",
-                    objectFit: "contain",
-                  }}
-                />
-              </picture>
-            </figure>
+            {!product.url && (
+              <figure>
+                <div class="box">
+                  <div class="skeleton">
+                    <div class="skeleton-right">
+                      <div class="square"></div>
+                    </div>
+                  </div>
+                </div>
+              </figure>
+            )}
+            {product.url && (
+              <figure>
+                <picture>
+                  <img
+                    src={product.url}
+                    alt="product spiced mint"
+                    style={{
+                      width: "338.311px",
+                      height: "253.733px",
+                      objectFit: "contain",
+                    }}
+                  />
+                </picture>
+              </figure>
+            )}
             <form id="form-quantity-product" action="#" method="post">
               <section className="cart">
                 <div>

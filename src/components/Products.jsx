@@ -259,11 +259,26 @@ const Products = () => {
 
           <section className="cards container2">
             {cards.length > 0 && <>{cards}</>}
+            {cards.length == 0 && (
+              <>
+                {" "}
+                <div
+                  style={{
+                    color: "#56B180",
+                    marginTop: "1em",
+                    fontSize: "22px",
+                  }}
+                >
+                  Loading ...
+                </div>
+              </>
+            )}
             <div
               style={{
                 display: `${loading}`,
                 color: "#56B180",
                 marginTop: "1em",
+                fontSize: "22px",
               }}
             >
               Loading ...

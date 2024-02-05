@@ -37,6 +37,7 @@ const Products = () => {
   const goToAllProduct = () => {
     nevigate("/allproducts");
   };
+
   return (
     <>
       <section id="products" className="container section-products">
@@ -45,11 +46,24 @@ const Products = () => {
           <p>Order it for you or for your beloved ones</p>
         </section>
 
-        <div className="cards-filter">
-          <section className="cards">
-            {cards.length > 0 && <>{cards}</>}
-          </section>
-        </div>
+        {cards.length == 0 && (
+          <h1>
+            <span
+              style={{ fontSize: "22px", margin: "auto", color: "#56B180" }}
+            >
+              {" "}
+              Loading ...
+            </span>
+          </h1>
+        )}
+        {cards.length > 0 && (
+          <div className="cards-filter">
+            <section className="cards">
+              {cards.length > 0 && <>{cards}</>}
+            </section>
+          </div>
+        )}
+
         <div id="see-more-product" className=" btn-see-more">
           <button onClick={goToAllProduct} className="button">
             {" "}

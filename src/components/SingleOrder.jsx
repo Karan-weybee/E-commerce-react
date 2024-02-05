@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import OrderItem from "./OrderItem";
 import { getOrder } from "../firebase/api/order";
+import TableSkeleton from "./TableSkeleton";
 
 const SingleOrder = () => {
   const nevigate = useNavigate();
@@ -64,6 +65,16 @@ const SingleOrder = () => {
             </div>
           </div>
 
+          {cartProducts.length == 0 && (
+            <>
+              <div style={{ marginTop: "2.5em" }}>
+                <TableSkeleton />
+                <TableSkeleton />
+                <TableSkeleton />
+                <TableSkeleton />
+              </div>
+            </>
+          )}
           {cartProducts.length > 0 && <> {cartProducts}</>}
 
           <section className="check-out">

@@ -8,6 +8,7 @@ import CartItem from "./CartItem";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getAllCarts } from "../firebase/api/cart";
+import TableSkeleton from "./TableSkeleton";
 
 const Cart = () => {
   const nevigate = useNavigate();
@@ -68,7 +69,16 @@ const Cart = () => {
               <p className="total">Total</p>
             </div>
           </div>
-
+          {cartProducts.length == 0 && (
+            <>
+              <div style={{ marginTop: "2.5em" }}>
+                <TableSkeleton />
+                <TableSkeleton />
+                <TableSkeleton />
+                <TableSkeleton />
+              </div>
+            </>
+          )}
           {cartProducts.length > 0 && <> {cartProducts}</>}
 
           <section className="check-out">

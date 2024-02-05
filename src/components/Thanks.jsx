@@ -4,6 +4,7 @@ import check_circle from "../img/icones/CheckCircle.png";
 import cart_mobile from "../img/fotos/spiced-mint-cart-mobile.png";
 import cart from "../img/fotos/spiced-mint-cart.png";
 import "../css/Thanks.scss";
+import { Link } from "react-router-dom";
 
 const Thanks = () => {
   return (
@@ -23,13 +24,13 @@ const Thanks = () => {
             <section className="breadcrumb">
               <ul>
                 <li>
-                  <a href="./cart.html" className="green">
+                  <Link to="/cart" className="green">
                     Cart
-                  </a>
+                  </Link>
                   <i className="bi bi-chevron-right"></i>
                 </li>
                 <li>
-                  <a href="./authentication.html" className="green">
+                  <a href="#" className="green">
                     Details
                   </a>
                   <i className="bi bi-chevron-right"></i>
@@ -52,7 +53,9 @@ const Thanks = () => {
                 <img src={check_circle} alt="icon check circle" />
               </figure>
               <h3>Payment Confirmed</h3>
-              <p>ORDER #2039</p>
+              <br />
+              <br />
+              <p>ORDER COMPLETED</p>
               <div>
                 <p>
                   Thank you Joe for buying Candleaf. The nature is grateful to
@@ -62,9 +65,9 @@ const Thanks = () => {
                 </p>
               </div>
               <p>
-                <a href="/" className="button">
+                <Link to="/" className="button">
                   Back to shopping
-                </a>
+                </Link>
               </p>
               <p>
                 <a className="link" href="#">

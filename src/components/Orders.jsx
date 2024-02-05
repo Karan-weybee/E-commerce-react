@@ -5,11 +5,9 @@ import { useSelector } from "react-redux";
 import "../css/Orders.scss";
 import { useNavigate } from "react-router-dom";
 import { getOrder, userOrders } from "../firebase/api/order";
+import TableSkeleton from "./TableSkeleton";
 
 const Orders = () => {
-  const inputDateString =
-    "Thu Feb 02 2024 17:00:17 GMT+0530 (India Standard Time)";
-
   const getOrdinalSuffix = (number) => {
     const suffixes = ["th", "st", "nd", "rd"];
     const v = number % 100;
@@ -93,7 +91,23 @@ const Orders = () => {
           <th className="view">View</th>
         </tr>
 
-        {orderList &&
+        {orderList.length == 0 && (
+          <>
+            <tr>
+              <TableSkeleton />
+              <TableSkeleton />
+              <TableSkeleton />
+              <TableSkeleton />
+            </tr>
+            <tr>
+              <TableSkeleton />
+              <TableSkeleton />
+              <TableSkeleton />
+              <TableSkeleton />
+            </tr>
+          </>
+        )}
+        {orderList.length > 0 &&
           orderList.map((orderlist) => (
             <tr key={orderlist.orderId}>
               <td>{orderlist.orderId.hashCode()}</td>
